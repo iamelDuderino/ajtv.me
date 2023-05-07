@@ -6,5 +6,6 @@ import (
 )
 
 func Display(writer http.ResponseWriter, req *http.Request) {
-	fmt.Fprint(writer, "Hello, World! This is the Home Page.")
+	homePage := "<h1>Andrew J Tomko V</h1><div>Future websume content</div>"
+	fmt.Fprint(writer, homePage)
 }
