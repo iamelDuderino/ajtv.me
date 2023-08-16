@@ -1,0 +1,181 @@
+:root {
+    cursor: default;
+    text-align: center;
+    --font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    --primary-color: rgb(25, 91, 133);
+    --secondary-color: white;
+    --hover-font-color: lightcoral;
+    animation: bg-gradient-transition 2s ease forwards;
+    animation-delay: 3s;
+    background-attachment: fixed;
+}
+
+@keyframes bg-gradient-transition {
+    0%, 20% {
+        background-image: linear-gradient(to bottom right, white, white, white, white, white);
+    }
+    20%, 25% {
+        background-image: linear-gradient(to bottom right, var(--secondary-color), white, white, white, white);
+    }
+    25%, 30% {
+        background-image: linear-gradient(to bottom right, var(--secondary-color), var(--secondary-color), white, white, white);
+    }
+    30%,35% {
+        background-image: linear-gradient(to bottom right, var(--secondary-color), var(--secondary-color), var(--secondary-color), white, white);
+    }
+    35%,40% {
+        background-image: linear-gradient(to bottom right, var(--secondary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color), white);
+    }
+    45%, 50% {
+        background-image: linear-gradient(to bottom right, var(--secondary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color));
+    }
+    50%, 55% {
+        background-image: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color));
+    }
+    55%, 60% {
+        background-image: linear-gradient(to bottom right, var(--primary-color), var(--primary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color));
+    }
+    60%,65% {
+        background-image: linear-gradient(to bottom right, var(--primary-color), var(--primary-color), var(--primary-color), var(--secondary-color), var(--secondary-color));
+    }
+    65%,70% {
+        background-image: linear-gradient(to bottom right, var(--primary-color), var(--primary-color), var(--primary-color), var(--primary-color), var(--secondary-color));
+    }
+    70%, 100% {
+        background-image: linear-gradient(to bottom right, var(--primary-color), var(--primary-color), var(--primary-color), var(--primary-color), var(--primary-color));
+    }
+}
+
+@keyframes header-vanish {
+    100% {
+        transform: scale(0%);
+    }
+}
+
+@keyframes grow-font-120 {
+    100% {
+        transform: translateY(.3rem);
+    }
+}
+
+@keyframes nav-ul {
+    100% {
+        transform: translateX(.3rem);
+        font-size: xx-large;
+    }
+}
+
+header {
+    animation: header-vanish 1s forwards;
+    animation-delay: 3.5s;
+    margin: 0;
+    padding: 1rem;
+    font-size: xx-large;
+    font-family: var(--font-family);
+    font-style: italic;
+    background-color: transparent;
+}
+
+footer {
+    padding: .5rem;
+    font-family: var(--font-family);
+    background-color: transparent;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: default;
+}
+
+hr {
+    opacity: 10%;
+    border: 1px solid black;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+p {
+    font-size: large;
+    font-family: var(--font-family);
+}
+
+ul {
+    list-style-type: none;
+}
+
+nav {
+    display: flex;
+}
+
+.ahref:hover {
+    color: var(--hover-font-color);
+    animation: grow-font-120 2s ease;
+}
+
+.about-experience {
+    text-align: left;
+}
+
+.about-experience-content-hr {
+    margin: 0;
+    width: 20rem;
+}
+
+.nav-ul {
+    flex-direction: column;
+    width: 6rem;
+    margin: 0;
+    padding: 1rem;
+    font-family: var(--font-family);
+    font-size: x-large;
+    text-align: left;
+    text-decoration: none;
+}
+
+.nav-ul a:link, a:active, a:hover, a:visited {
+    text-decoration: none;
+    color: inherit;
+    cursor: default;
+}
+
+.nav-ul li:hover {
+    color: var(--hover-font-color);
+    animation: nav-ul .2s ease forwards;
+}
+
+.layout {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    background-color: transparent;
+}
+
+.content {
+    columns: 1;
+    width: 100%;
+    margin-left: 1rem;
+    padding: 0;
+    font-family: var(--font-family);
+    background-color: transparent;
+}
+
+.content-hr {
+    width: 20rem;
+}
+
+.footer-hr {
+    width: 10rem;
+}
+
+.footer-primary {
+    font-size: large;
+}
+
+.footer-secondary {
+    font-size: small;
+}
