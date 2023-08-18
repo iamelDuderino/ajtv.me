@@ -7,7 +7,20 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-      <header></header>
+      <header class="header"><h1 class="header-text">ajtv.me</h1></header>
+            <!-- Mini Nav bar -->
+      <div class="nav-mini-div">
+        <nav class="nav-mini">
+          <p>[ ... ]</p>
+          <ul class="nav-mini-ul">
+            <li class="nav-mini-ul-li"><a href="/">Home</a></li><hr class="nav-mini-hr">
+            <li class="nav-mini-ul-li"><a href="/about">About</a></li><hr class="nav-mini-hr">
+            <li class="nav-mini-ul-li"><a href="/skills">Skills</a></li><hr class="nav-mini-hr">
+            <li class="nav-mini-ul-li"><a href="/games">Games</a></li><hr class="nav-mini-hr">
+            <li class="nav-mini-ul-li"><a href="/contact">Contact</a></li><hr class="nav-mini-hr">
+          </ul>
+        </nav> <!-- end nav -->
+      </div> <!-- end mini nav bar -->
       <div class="layout">
           <!-- Nav Bar -->
         <nav class="nav">
@@ -22,12 +35,12 @@
         <!-- Templated Content -->
         <div class="content">
           {{template "content" .}}
-              <!-- Footer -->
-              <div class="footer">
-                <hr class="footer-hr">
-                <footer class="footer-primary"><a href="https://www.linkedin.com/in/andrew-aj-tomko-24132948/" class="ahref">LinkedIn</a> | <a href="https://www.github.com/iamelDuderino" class="ahref">Github</a></footer>
-                <footer class="footer-secondary">Powered by Azure Gophers</footer>
-              </div> <!-- end footer -->
+                <!-- Footer -->
+                <div class="footer">
+                  <hr class="footer-hr">
+                  <footer class="footer-primary">LinkedIn | Github</footer>
+                  <footer class="footer-secondary">Powered by Azure Gophers</footer>
+                </div> <!-- end footer -->
           </div> <!-- end content -->
       </div> <!-- end layout -->
     </body>

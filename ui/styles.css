@@ -65,7 +65,13 @@
     }
 }
 
-/* header {} */
+header {
+    display: flex;
+    justify-content: right;
+    font: var(--font-family);
+    font-style: italic;
+    margin: 0rem .2rem 0rem .2rem;
+}
 
 footer {
     padding: .5rem;
@@ -87,7 +93,6 @@ hr {
 body {
     margin: 0;
     padding: 0;
-    background-color: transparent;
 }
 
 p {
@@ -128,7 +133,7 @@ nav {
     width: 20rem;
 }
 
-.nav-ul {
+.nav-ul, .nav-mini-ul {
     flex-direction: column;
     width: 6rem;
     margin: 0;
@@ -137,6 +142,52 @@ nav {
     font-size: x-large;
     text-align: left;
     text-decoration: none;
+}
+
+.nav-mini-div {
+    margin-right: .1rem;
+    margin-left: .1rem;
+    display: flex;
+    justify-content: left;
+}
+
+.nav-mini {
+    display: none;
+}
+
+.nav-mini-ul {
+    position: fixed;
+    background-color: var(--hover-font-color);
+    opacity: 90%;
+    font-size: medium;
+    display: none;
+    border-radius: 7%;
+    /*  */
+    max-width: fit-content;
+    max-height: 11rem;
+}
+
+.nav-mini-ul-li {
+    opacity: 100%;
+    color: black;
+}
+
+.nav-mini-ul-li:hover {
+    color: white;
+}
+
+.nav-mini:hover .nav-mini-ul {
+    display: block;
+    z-index: 1;
+}
+
+@media (max-width: 400px) {
+    .nav-ul {
+        display: none;
+    }
+    .nav-mini {
+        display: inline-block;
+    }
 }
 
 .nav-ul a:link, a:active, a:hover, a:visited {
@@ -158,20 +209,29 @@ nav {
 }
 
 .content {
-    columns: 1;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     margin-left: 1rem;
     padding: 0;
     font-family: var(--font-family);
     background-color: transparent;
 }
 
+.header-hr {
+    width: 90%;
+}
+
 .content-hr {
-    width: 20rem;
+    width: 60%;;
+}
+
+.bio-content-hr {
+    align-content: left;
 }
 
 .footer-hr {
-    width: 10rem;
+    width: 20%;
 }
 
 .footer-primary {
