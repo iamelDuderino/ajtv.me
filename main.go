@@ -48,7 +48,7 @@ type page struct {
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	err := indexView.Render(w, &page{
-		H1:  "Home",
+		H1:  "welcome to andrewjtomko.me!",
 		CSS: css,
 	})
 	if err != nil {

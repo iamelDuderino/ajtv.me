@@ -65,16 +65,7 @@
     }
 }
 
-header {
-    animation: header-vanish 1s forwards;
-    animation-delay: 3.5s;
-    margin: 0;
-    padding: 1rem;
-    font-size: xx-large;
-    font-family: var(--font-family);
-    font-style: italic;
-    background-color: transparent;
-}
+/* header {} */
 
 footer {
     padding: .5rem;
@@ -110,6 +101,17 @@ ul {
 
 nav {
     display: flex;
+}
+
+.home-page-welcome-header {
+    animation: header-vanish 1s forwards;
+    animation-delay: 3.5s;
+    margin: 0;
+    padding: 1rem;
+    font-size: xx-large;
+    font-family: var(--font-family);
+    font-style: italic;
+    background-color: transparent;
 }
 
 .ahref:hover {
