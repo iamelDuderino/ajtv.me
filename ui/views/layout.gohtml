@@ -3,45 +3,50 @@
   <html lang="en">
     <head>
       <title>ajtv.me - {{template "title" .}}</title>
-      <style>{{.CSS}}</style>
+      <link href="../styles.css" rel="stylesheet">
       <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-      <header class="header"><h1 class="header-text">ajtv.me</h1></header>
-            <!-- Mini Nav bar -->
-      <div class="nav-mini-div">
-        <nav class="nav-mini">
-          <p>[ ... ]</p>
-          <ul class="nav-mini-ul">
-            <li class="nav-mini-ul-li"><a href="/">Home</a></li><hr class="nav-mini-hr">
-            <li class="nav-mini-ul-li"><a href="/about">About</a></li><hr class="nav-mini-hr">
-            <li class="nav-mini-ul-li"><a href="/skills">Skills</a></li><hr class="nav-mini-hr">
-            <li class="nav-mini-ul-li"><a href="/games">Games</a></li><hr class="nav-mini-hr">
-            <li class="nav-mini-ul-li"><a href="/contact">Contact</a></li><hr class="nav-mini-hr">
-          </ul>
-        </nav> <!-- end nav -->
-      </div> <!-- end mini nav bar -->
+
+    <!-- Mini Nav bar -->
+    <nav class="nav-mini">[ ... ]
+      <ul class="nav-mini-ul">
+        <li class="nav-mini-ul-li"><a href="/">Home</a></li><hr class="nav-mini-hr">
+        <li class="nav-mini-ul-li"><a href="/about">About</a></li><hr class="nav-mini-hr">
+        <li class="nav-mini-ul-li"><a href="/skills">Skills</a></li><hr class="nav-mini-hr">
+        <li class="nav-mini-ul-li"><a href="/games">Games</a></li><hr class="nav-mini-hr">
+        <li class="nav-mini-ul-li"><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <header>
+      <h1 class="header-text">ajtv.me</h1>
+    </header>
+
+      <!-- LAYOUT -->
       <div class="layout">
-          <!-- Nav Bar -->
+        <!-- NAV BAR -->
         <nav class="nav">
           <ul class="nav-ul">
             <li><a href="/">Home</a></li><hr class="nav-hr">
             <li><a href="/about">About</a></li><hr class="nav-hr">
             <li><a href="/skills">Skills</a></li><hr class="nav-hr">
             <li><a href="/games">Games</a></li><hr class="nav-hr">
-            <li><a href="/contact">Contact</a></li><hr class="nav-hr">
+            <li><a href="/contact">Contact</a></li>
           </ul>
-        </nav> <!-- end nav -->
-        <!-- Templated Content -->
+        </nav> 
+        <!-- end nav bar -->
+        <!-- TEMPLATED CONTENT -->
         <div class="content">
           {{template "content" .}}
-                <!-- Footer -->
-                <div class="footer">
-                  <hr class="footer-hr">
-                  <footer class="footer-primary">LinkedIn | Github</footer>
-                  <footer class="footer-secondary">Powered by Azure Gophers</footer>
-                </div> <!-- end footer -->
-          </div> <!-- end content -->
+          <!-- FOOTER -->
+          <footer class="footer">
+            <hr class="footer-hr">
+            <footer class="footer-primary"><a href="https://linkedin.com">LinkedIn</span> | Github</footer>
+            <footer class="footer-secondary">Powered by Azure Gophers</footer>
+          </footer> <!-- end footer -->
+        </div> <!-- end templated content -->
       </div> <!-- end layout -->
     </body>
   </html>
