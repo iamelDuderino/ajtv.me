@@ -95,16 +95,14 @@ func setCSS() {
 
 type resume struct {
 	Summary   string
-	Job1      *job
-	Job2      *job
-	Job3      *job
+	Jobs      []*job
 	Education []*edu
 }
 
 type job struct {
 	CompanyName string
 	Title       string
-	Experience  string
+	Experience  []string
 	StartDate   string
 	EndDate     string
 	Years       string
@@ -132,24 +130,41 @@ func getBio() *bio {
 		Suffix:        "V",
 	}
 	bio.Resume.Summary = `Quick learner with a strong work ethic experienced in fast-paced onprem and cloud system administration from Active Directory and Cisco Unified Communications to G Suite, Azure AD, Zoom, WebEx and other SaaS applications with a mindset for security and a passion for building automation and process improvement including but not limited to synchronizing platforms through Powershell API scripting and SSO/SAML integrations.`
-	bio.Resume.Job1 = &job{
+	bio.Resume.Jobs = append(bio.Resume.Jobs, &job{
 		CompanyName: "Grafana Labs",
 		Title:       "Enterprise Application Developer",
-		Experience:  "Creating GoLang web apps and other cool stuff!",
-		Years:       "02-14-22 thru Current",
-	}
-	bio.Resume.Job2 = &job{
-		CompanyName: "Turbonomic, an IBM Company",
-		Title:       "Manager, Global Help Desk",
-		Experience:  "Managed a global help desk team",
-		Years:       "01-02-2006 thru 02-14-22",
-	}
-	bio.Resume.Job3 = &job{
-		CompanyName: "SevOne",
-		Title:       "Sr IT Support Engineer",
-		Experience:  "Escalations, Integrations, Mergers & Acquisitions, etc.",
-		Years:       "03-04-1991 thru 01-02-2006",
-	}
+		Experience: []string{
+			"Python Cron Reports, Backups & More",
+			"LMS Automations w/ Google Calendar & Zoom",
+			"Advanced Okta Workflows",
+		},
+		Years: "02-14-22 thru Current",
+	})
+	bio.Resume.Jobs = append(bio.Resume.Jobs, &job{
+		CompanyName: "Turbonomic (acquired by IBM)",
+		Title:       "Manager, Global Help Desk Services",
+		Years:       "2021 - 2022",
+		Experience: []string{
+			"Responsible for Help Desk M&A activity post acquisition (IBM) in preparation for transfer of employment (TOE)",
+			"Supported the transfer of multi-departmental services for critical business continuity in preparation for transfer of business (TOB)",
+			"Coordinated the replacement of 520 employee assets for US, CAN and APAC",
+			"Worked directly with Executives, Legal, and Human Resources sponsors to offer Keep Your Old Device (KYOD) programs for all Turbonomic assets to supplement Employee transitional concern and satisfaction",
+		},
+	})
+	bio.Resume.Jobs = append(bio.Resume.Jobs, &job{
+		CompanyName: "SevOne (acquired by Turbonomic)",
+		Title:       "Team Lead, Help Desk",
+		Years:       "2012 - 2021",
+		Experience: []string{
+			"Front and Back-end systems administration for Azure and Active Directories and other help desk managed industry standard SaaS applications",
+			"Built and maintained multifunctional cross-company powershell tool utilizing API with CSV/JSON for routine help desk functions to create a single point of contact which decreased overall lead times of standard day-to-day requests and removed general human error",
+			"Led the integration projects during acquisitions for migration of corporate devices, distribution lists, accounts and their relative SSO and other integrations",
+			"Manage vendors for IT and Help Desk from initial discovery through the entire procurement process, including but not limited to, acquisition of hardware, software, cloud services, renewals and new vendor onboarding",
+			"Successfully rolled out new Antivirus (Sophos) and MDM (workspace one)",
+			"Supported Information Security in a successful ISO27001 implementation and audit",
+			"Create and maintain all IT policies, procedures, standards and methodologies for the Help Desk team company wide",
+		},
+	})
 	bio.Resume.Education = append(bio.Resume.Education, &edu{
 		School:       "Self Taught",
 		Years:        "1991-current",

@@ -1,43 +1,31 @@
-{{define "title"}}About{{end}}
+{{ define "title" }}About{{ end }}
 
-{{define "content"}}
-    <div class="about-experience">
-    <!-- Summary -->
-    <h1>Summary</h1>
-    <hr class="about-experience-content-hr">
-    <p>{{.Data.Resume.Summary}}</p>
-    <hr class="about-experience-content-hr">
-    <!-- Experience -->
-    <h1>Experience</h1>
-    <!-- Job 1 -->
-    <hr class="about-experience-content-hr">
-    <section>
-        <h2>{{.Data.Resume.Job1.CompanyName}}</h2>
-        <h3>{{.Data.Resume.Job1.Title}}</h3>
-        <ul>
-            <li>{{.Data.Resume.Job1.Years}}</li>
-            <li>{{.Data.Resume.Job1.Experience}}</li>
-        </ul>
-    </section>
-    <!-- Job 2 -->
-    <hr class="about-experience-content-hr">
-    <section>
-        <h2>{{.Data.Resume.Job2.CompanyName}}</h2>
-        <h3>{{.Data.Resume.Job2.Title}}</h3>
-        <ul>
-            <li>{{.Data.Resume.Job2.Years}}</li>
-            <li>{{.Data.Resume.Job2.Experience}}</li>
-        </ul>
-    </section>
-    <!-- Job 3 -->
-    <hr class="about-experience-content-hr">
-    <section>
-        <h2>{{.Data.Resume.Job3.CompanyName}}</h2>
-        <h3>{{.Data.Resume.Job3.Title}}</h3>
-        <ul>
-            <li>{{.Data.Resume.Job3.Years}}</li>
-            <li>{{.Data.Resume.Job3.Experience}}</li>
-        </ul>
-    </section>
-    </div>
-{{end}}
+{{ define "content" }}
+<link href="../styles.css" rel="stylesheet">
+
+    <!-- Header -->
+    <h1>{{ .Data.FirstName }} ({{ .Data.PreferredName }}) {{ .Data.LastName }} {{ .Data.Suffix }}</h1>
+
+    <!-- SUMMARY -->
+    <h2>SUMMARY</h2>
+    <hr class="content-hr">
+    <p>{{ .Data.Resume.Summary }}</p>
+    <hr class="content-hr">
+
+    <!-- EXPERIENCE -->
+    <h2>EXPERIENCE</h2>
+    {{ range .Data.Resume.Jobs }}
+    <hr class="content-hr">
+        <h3>{{ .CompanyName }}</h3>
+        <p class="bio-content-title">{{ .Years }} | {{ .Title }}</p>
+        <div class="bio-content">
+            <ul class="bio-content-ul">
+                {{ range .Experience }}
+                    <li class="bio-content-li">{{ . }}</li>
+                {{ end }}
+            </ul>
+        </div>
+
+    {{ end }}
+
+{{ end }}

@@ -1,6 +1,5 @@
 :root {
-    cursor: default;
-    text-align: center;
+    /* cursor: default; */
     --font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     --primary-color: rgb(25, 91, 133);
     --secondary-color: white;
@@ -8,6 +7,12 @@
     animation: bg-gradient-transition 1s ease forwards;
     animation-delay: .5s;
     background-attachment: fixed;
+}
+
+* {
+    font-family: var(--font-family);
+    cursor: default;
+    text-align: center;
 }
 
 @keyframes bg-gradient-transition {
@@ -52,9 +57,9 @@
     }
 }
 
-@keyframes grow-font-120 {
+@keyframes grow-font {
     100% {
-        transform: translateY(.3rem);
+        font-size: x-large;
     }
 }
 
@@ -107,7 +112,19 @@ ul {
 }
 
 nav {
+    height: 100%;
+    width: 10rem;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
     display: flex;
+}
+
+span:hover {
+    color: var(--hover-font-color);
+    animation: grow-font .2s ease forwards;
 }
 
 .home-page-welcome-header {
@@ -119,20 +136,6 @@ nav {
     font-family: var(--font-family);
     font-style: italic;
     background-color: transparent;
-}
-
-.ahref:hover {
-    color: var(--hover-font-color);
-    animation: grow-font-120 2s ease;
-}
-
-.about-experience {
-    text-align: left;
-}
-
-.about-experience-content-hr {
-    margin: 0;
-    width: 20rem;
 }
 
 .nav-ul, .nav-mini-ul {
@@ -161,7 +164,6 @@ nav {
     font-size: medium;
     display: none;
     border-radius: 7%;
-    /*  */
     max-width: fit-content;
     max-height: 11rem;
 }
@@ -178,14 +180,19 @@ nav {
 .nav-mini:hover .nav-mini-ul {
     display: block;
     z-index: 1;
+    transform: translateY(2rem);
 }
 
 @media (max-width: 400px) {
-    .nav-ul {
+    .nav {
         display: none;
     }
     .nav-mini {
         display: flex;
+    }
+    .content {
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
 }
 
@@ -212,7 +219,10 @@ nav {
     flex-direction: column;
     height: 100%;
     width: 100%;
-    margin: 1rem;
+    margin-left: 10rem;
+    margin-right: 3rem;
+    margin-top: 0;
+    margin-bottom: 0;
     justify-content: center;
     padding: 0;
     font-family: var(--font-family);
@@ -227,10 +237,6 @@ nav {
     width: 60%;;
 }
 
-.bio-content-hr {
-    align-content: left;
-}
-
 .footer-hr {
     width: 20%;
 }
@@ -241,4 +247,22 @@ nav {
 
 .footer-secondary {
     font-size: small;
+}
+
+.bio-content {
+    width: 100%;
+    display:flex;
+    justify-content: center;
+}
+
+.bio-content-title {
+    font-style: italic;
+}
+
+.bio-content-ul {
+    list-style-type:disc;
+}
+
+.bio-content-li {
+    text-align: left;
 }
