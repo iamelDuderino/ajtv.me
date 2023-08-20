@@ -1,5 +1,18 @@
 {{define "title"}}Contact{{end}}
 
 {{define "content"}}
-    <h1>{{.H1}}</h1>
+    <h1>{{ .H1 }}</h1>
+    <p>{{ .P }}</p>
+    
+    <form>
+        <label class="contact-label" for="cname">Your Name</label>
+        <br>
+        <input type="text" id="cname"></input>
+        <br><br>
+        <label class="contact-label" for="cmsg">Message</label>
+        <br>
+        <textarea id="cmsg"></textarea>
+        <br>
+        <button>Submit</button>
+    </form>
 {{end}}

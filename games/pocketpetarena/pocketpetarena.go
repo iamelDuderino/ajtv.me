@@ -1,4 +1,4 @@
-package pocketpetstadium
+package pocketpetarena
 
 import "net/http"
 

@@ -120,6 +120,26 @@ nav {
     display: flex;
 }
 
+form {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+textarea, #cname {
+    text-align: left;
+    min-width: 50%;
+    max-width: 100%;
+    min-height: 50%;
+    max-height: 100%;
+    font-size: large;
+}
+
+textarea:focus, #cname:focus {
+    outline: none;
+}
+
 span:hover {
     color: var(--hover-font-color);
     animation: grow-font .2s ease forwards;
@@ -260,5 +280,10 @@ span:hover {
 }
 
 .bio-content-li {
+    text-align: left;
+}
+
+.contact-label {
+    font-size: x-large;
     text-align: left;
 }

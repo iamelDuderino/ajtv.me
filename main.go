@@ -67,6 +67,7 @@ func handleAbout(w http.ResponseWriter, r *http.Request) {
 func handleSkills(w http.ResponseWriter, r *http.Request) {
 	skillsView.Render(w, &page{
 		H1:  "Skills",
+		P:   "GoLang, Python, Powershell, HTML, CSS, JavaScript.. Okta, FreshService & BetterCloud Workflows.. Azure Web & Function App Deployments.. Building, Integrating & Maintaining APIs & Webhook Endpoints.. Slack Bots & Slash Commands.. and more!",
 		CSS: css,
 	})
 }
@@ -74,6 +75,7 @@ func handleSkills(w http.ResponseWriter, r *http.Request) {
 func handleGames(w http.ResponseWriter, r *http.Request) {
 	gamesView.Render(w, &page{
 		H1:  "Games",
+		P:   "Bump Ball | Pocket Pet Arena | Apex Legend Picker",
 		CSS: css,
 	})
 }
@@ -81,6 +83,7 @@ func handleGames(w http.ResponseWriter, r *http.Request) {
 func handleContact(w http.ResponseWriter, r *http.Request) {
 	contactView.Render(w, &page{
 		H1:  "Contact",
+		P:   "Fill out the fake form from the future below to contact me!",
 		CSS: css,
 	})
 }
