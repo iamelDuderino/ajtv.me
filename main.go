@@ -132,7 +132,7 @@ func getBio() *bio {
 		PreferredName: "AJ",
 		Suffix:        "V",
 	}
-	bio.Resume.Summary = `Quick learner with a strong work ethic experienced in fast-paced onprem and cloud system administration from Active Directory and Cisco Unified Communications to G Suite, Azure AD, Zoom, WebEx and other SaaS applications with a mindset for security and a passion for building automation and process improvement including but not limited to synchronizing platforms through Powershell API scripting and SSO/SAML integrations.`
+	bio.Resume.Summary = `Quick learner with a strong work ethic experienced in fast-paced onprem and cloud system administration from Active Directory and Cisco Unified Communications to G Suite, Azure AD, Zoom, WebEx and other SaaS applications with a mindset for security and a passion for building automation and process improvement including but not limited to synchronizing platforms through GoLang API scripting and SSO/SAML integrations.`
 	bio.Resume.Jobs = append(bio.Resume.Jobs, &job{
 		CompanyName: "Grafana Labs",
 		Title:       "Enterprise Application Developer",
@@ -141,7 +141,7 @@ func getBio() *bio {
 			"LMS Automations w/ Google Calendar & Zoom",
 			"Advanced Okta Workflows",
 		},
-		Years: "02-14-22 thru Current",
+		Years: "2022 - Current",
 	})
 	bio.Resume.Jobs = append(bio.Resume.Jobs, &job{
 		CompanyName: "Turbonomic (acquired by IBM)",
