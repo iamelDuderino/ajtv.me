@@ -1,6 +1,6 @@
 :root {
     --font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    --primary-color: rgb(91, 156, 196);
+    --primary-color: rgb(123, 191, 233);
     --secondary-color: white;
     --hover-font-color: lightcoral;
     animation: bg-gradient-transition 1s ease forwards;
