@@ -1,4 +1,8 @@
-{{ define "title" }}About{{ end }}
+{{ define "title" }}
+
+About
+
+{{ end }}
 
 {{ define "content" }}
 
@@ -13,7 +17,9 @@
 
     <!-- EXPERIENCE -->
     <h2>EXPERIENCE</h2>
+
     {{ range .Data.Resume.Jobs }}
+    
     <hr class="content-hr">
         <h3>{{ .CompanyName }}</h3>
         <p class="bio-content-title">{{ .Years }} | {{ .Title }}</p>

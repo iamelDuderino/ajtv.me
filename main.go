@@ -20,7 +20,7 @@ var (
 
 func main() {
 	setCSS()
-	indexView = views.NewView("layout", "./ui/views/index.gohtml")
+	indexView = views.NewView("layout", "./ui/views/home.gohtml")
 	aboutView = views.NewView("layout", "./ui/views/about.gohtml")
 	skillsView = views.NewView("layout", "./ui/views/skills.gohtml")
 	gamesView = views.NewView("layout", "./ui/views/games.gohtml")

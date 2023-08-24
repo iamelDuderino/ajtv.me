@@ -1,4 +1,5 @@
-{{define "layout"}}
+{{ define "layout" }}
+
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -39,7 +40,8 @@
         <!-- end nav bar -->
         <!-- TEMPLATED CONTENT -->
         <div class="content">
-          {{template "content" .}}
+
+          {{ template "content" . }}
           
           <!-- FOOTER -->
           <footer class="footer">
@@ -51,4 +53,5 @@
       </div> <!-- end layout -->
     </body>
   </html>
-{{end}}
+  
+{{ end }}
