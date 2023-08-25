@@ -7,51 +7,63 @@
       <style>{{.CSS}}</style>
       <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    <body>
 
-    <!-- Mini Nav bar -->
-    <nav class="nav-mini">[ ... ]
-      <ul class="nav-mini-ul">
-        <li class="nav-mini-ul-li"><a href="/">Home</a></li><hr class="nav-mini-hr">
-        <li class="nav-mini-ul-li"><a href="/about">About</a></li><hr class="nav-mini-hr">
-        <li class="nav-mini-ul-li"><a href="/skills">Skills</a></li><hr class="nav-mini-hr">
-        <li class="nav-mini-ul-li"><a href="/games">Games</a></li><hr class="nav-mini-hr">
-        <li class="nav-mini-ul-li"><a href="/contact">Contact</a></li>
-      </ul>
-    </nav>
+  <body>
+  
+  <!-- HEADER -->
+  <header>
 
-    <!-- HEADER -->
-    <header>
-      <h1 class="header-text">ajtv.me</h1>
-    </header>
+  <!-- MINI NAV BAR -->
+  <nav class="nav-mini">[ ... ]
+    <ul class="nav-mini-ul">
+      <li class="nav-mini-ul-li"><a href="/">Home</a></li><hr class="nav-mini-hr">
+      <li class="nav-mini-ul-li"><a href="/about">About</a></li><hr class="nav-mini-hr">
+      <li class="nav-mini-ul-li"><a href="/skills">Skills</a></li><hr class="nav-mini-hr">
+      <li class="nav-mini-ul-li"><a href="/games">Games</a></li><hr class="nav-mini-hr">
+      <li class="nav-mini-ul-li"><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+  <!-- END MINI NAV BAR -->
 
-      <!-- LAYOUT -->
-      <div class="layout">
-        <!-- NAV BAR -->
-        <nav class="nav">
-          <ul class="nav-ul">
-            <li><a href="/">Home</a></li><hr class="nav-hr">
-            <li><a href="/about">About</a></li><hr class="nav-hr">
-            <li><a href="/skills">Skills</a></li><hr class="nav-hr">
-            <li><a href="/games">Games</a></li><hr class="nav-hr">
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-        </nav> 
-        <!-- end nav bar -->
-        <!-- TEMPLATED CONTENT -->
-        <div class="content">
+  <h1 class="banner-text">ajtv.me</h1>
+
+  </header>
+  <!-- END HEADER -->
+
+    <!-- LAYOUT -->
+    <div class="layout">
+
+      <!-- NAV BAR -->
+      <nav class="nav">
+        <ul class="nav-ul">
+          <li class="nav-ul-li"><a class="nav-ul-a" href="/">Home</a></li><hr class="nav-hr">
+          <li class="nav-ul-li"><a class="nav-ul-a" href="/about">About</a></li><hr class="nav-hr">
+          <li class="nav-ul-li"><a class="nav-ul-a" href="/skills">Skills</a></li><hr class="nav-hr">
+          <li class="nav-ul-li"><a class="nav-ul-a" href="/games">Games</a></li><hr class="nav-hr">
+          <li class="nav-ul-li"><a class="nav-ul-a" href="/contact">Contact</a></li>
+        </ul>
+      </nav> 
+      <!-- END NAV BAR -->
+
+      <!-- TEMPLATED CONTENT -->
+      <div class="content">
 
           {{ template "content" . }}
           
-          <!-- FOOTER -->
-          <footer class="footer">
-            <hr class="footer-hr">
-            <footer class="footer-primary"><span><a href="https://www.linkedin.com/in/andrew-aj-tomko-24132948/">LinkedIn</a></span> | <span><a href="https://github.com/iamelDuderino">Github</a></span></footer>
-            <footer class="footer-secondary">Powered by Azure Gophers</footer>
-          </footer> <!-- end footer -->
-        </div> <!-- end templated content -->
-      </div> <!-- end layout -->
-    </body>
-  </html>
+      </div> <!-- END TEMPLATED CONTENT -->
+    </div> <!-- END LAYOUT-->
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <hr class="footer-hr">
+      <footer class="footer-socials"><span class="socials"><a href="https://www.linkedin.com/in/andrew-aj-tomko-24132948/">LinkedIn</a></span> | <span class="socials"><a href="https://github.com/iamelDuderino">Github</a></span></footer>
+      <footer class="footer-poweredby">Powered by Azure Gophers</footer>
+    </footer>
+    <!-- END FOOTER -->
+      
+    
+  </body>
+</html>
   
 {{ end }}

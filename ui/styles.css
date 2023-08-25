@@ -1,20 +1,14 @@
 :root {
+    --bg-color: rgb(31, 28, 28);
     --font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    --primary-color: rgb(123, 191, 233);
-    --secondary-color: white;
-    --hover-font-color: lightcoral;
-    animation: bg-gradient-transition 1s ease forwards;
+    --font-color: rgba(255, 255, 255, 0.8);
+    --primary-color: rgba(130, 218, 130, 0.8);
+    --secondary-color: rgb(189, 41, 189);
     animation-delay: .5s;
     background-attachment: fixed;
 }
 
-* {
-    font-family: var(--font-family);
-    cursor: default;
-    text-align: center;
-}
-
-@keyframes bg-gradient-transition {
+@keyframes page-flip-gradient {
     0%, 20% {
         background-image: linear-gradient(to bottom right, white, white, white, white, white);
     }
@@ -50,26 +44,59 @@
     }
 }
 
-@keyframes header-vanish {
+@keyframes home-page-welcome {
     100% {
         transform: scale(0%);
     }
 }
 
-@keyframes grow-font {
+@keyframes home-page-post-welcome {
+    100% {
+        /* transform: scale(100%); */
+        /* opacity: 100%; */
+    }
+}
+
+@keyframes grow-font-xl {
     100% {
         font-size: x-large;
     }
 }
 
-@keyframes nav-ul {
+@keyframes grow-font-xxl {
     100% {
-        transform: translateX(.3rem);
         font-size: xx-large;
     }
 }
 
+@keyframes slide-right {
+    100% {
+        transform: translateX(.5rem);
+    }
+}
+
+@keyframes hr-glow {
+    0%, 100% {
+        opacity: 10%;
+    }
+    50% {
+        opacity: 30%;
+    }
+}
+
+* {
+    font-family: var(--font-family);
+    cursor: default;
+    color: var(--font-color);
+    text-align: center;
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
 header {
+    background-color: var(--primary-color);
     display: flex;
     margin: 0;
     padding-left: .5rem;
@@ -81,8 +108,6 @@ header {
 
 footer {
     padding: .5rem;
-    font-family: var(--font-family);
-    background-color: transparent;
 }
 
 a {
@@ -91,9 +116,13 @@ a {
     cursor: default;
 }
 
+h2 {
+    color: var(--primary-color)
+}
+
 hr {
     opacity: 10%;
-    border: 1px solid black;
+    border: 1px solid var(--bg-color);
 }
 
 body {
@@ -102,21 +131,13 @@ body {
 }
 
 p {
+    margin: 1rem;
     font-size: large;
     font-family: var(--font-family);
 }
 
 ul {
     list-style-type: none;
-}
-
-nav {
-    height: 100%;
-    width: 10rem;
-    top: 0;
-    left: 0;
-    overflow-x: hidden;
-    display: flex;
 }
 
 form {
@@ -140,13 +161,20 @@ textarea:focus, #cname:focus {
 }
 
 span:hover {
-    color: var(--hover-font-color);
-    animation: grow-font .2s ease forwards;
+    color: var(--primary-color);
 }
 
-.home-page-welcome-header {
-    animation: header-vanish 1s forwards;
-    animation-delay: 3.5s;
+.socials:hover {
+    animation: grow-font-xl .2s ease forwards;
+}
+
+.banner-text {
+    color: var(--bg-color);
+}
+
+.home-page-welcome {
+    animation: home-page-welcome 1s forwards;
+    animation-delay: 2s;
     margin: 0;
     padding: 1rem;
     font-size: xx-large;
@@ -155,40 +183,69 @@ span:hover {
     background-color: transparent;
 }
 
+.img-me {
+    display: block;
+    margin: auto;
+    padding: 0;
+    border-radius: 100pc;
+    width: 20rem;
+    box-shadow: 0 0 10pc 1pc var(--primary-color);
+}
+
+/* .home-page-post-welcome {
+    animation: home-page-post-welcome 1 forwards;
+    animation-delay: 3s;
+    background-image: url("./images/NewProfilePic2023.JPG");
+} */
+
 .nav-ul, .nav-mini-ul {
-    flex-direction: column;
     width: 6rem;
     margin: 0;
     padding: 1rem;
     font-family: var(--font-family);
     font-size: x-large;
-    text-align: left;
     text-decoration: none;
+}
+
+.nav-ul-a {
+    display: flex;
+    justify-content: left;
+}
+
+.nav-ul a:link, a:active, a:hover, a:visited {
+    text-decoration: none;
+    color: inherit;
+    cursor: default;
+}
+
+.nav-ul-li:hover {
+    color: var(--primary-color);
+    animation: slide-right .2s ease forwards;
 }
 
 .nav-mini {
     margin: 0;
-    padding: 0rem .5rem 0rem .5rem;
+    color: var(--bg-color);
+    padding: 1rem;
+    width: 100%;
+    align-self: center;
     display: none;
-    z-index: 1;
     font-family: var(--font-family);
     font-size: large;
 }
 
 .nav-mini-ul {
     position: fixed;
-    background-color: var(--hover-font-color);
-    opacity: 90%;
+    background-color: var(--primary-color);
     font-size: medium;
     display: none;
-    border-radius: 7%;
+    border-radius: 1pc;
     max-width: fit-content;
-    max-height: 11rem;
+    max-height: auto;
 }
 
 .nav-mini-ul-li {
-    opacity: 100%;
-    color: black;
+    color: var(--bg-color);
 }
 
 .nav-mini-ul-li:hover {
@@ -198,31 +255,7 @@ span:hover {
 .nav-mini:hover .nav-mini-ul {
     display: block;
     z-index: 1;
-    transform: translateY(2rem);
-}
-
-@media (max-width: 400px) {
-    .nav {
-        display: none;
-    }
-    .nav-mini {
-        display: flex;
-    }
-    .content {
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-}
-
-.nav-ul a:link, a:active, a:hover, a:visited {
-    text-decoration: none;
-    color: inherit;
-    cursor: default;
-}
-
-.nav-ul li:hover {
-    color: var(--hover-font-color);
-    animation: nav-ul .2s ease forwards;
+    transform: translateY(2rem) translateX(-1em);
 }
 
 .layout {
@@ -240,8 +273,11 @@ span:hover {
     margin: 0;
     justify-content: center;
     padding: 0;
-    font-family: var(--font-family);
     background-color: transparent;
+}
+
+.content-p, .content-h1, .content-h2, .content-h3 {
+    margin: 1rem;
 }
 
 .header-hr {
@@ -249,28 +285,33 @@ span:hover {
 }
 
 .content-hr {
-    width: 60%;;
+    width: 60%;
+    animation: hr-glow 3s ease infinite;
+    background-color: var(--primary-color);
+    height: .1rem;
+    border: transparent;
 }
 
 .footer-hr {
     width: 20%;
 }
 
-.footer-primary {
+.footer-socials {
     font-size: large;
 }
 
-.footer-secondary {
+.footer-poweredby {
     font-size: small;
 }
 
 .bio-content {
     width: 100%;
     display:flex;
-    justify-content: center;
+    justify-content: left;
 }
 
-.bio-content-title {
+.bio-content-summary {
+    text-align: center;
     font-style: italic;
 }
 
@@ -279,10 +320,29 @@ span:hover {
 }
 
 .bio-content-li {
+    padding: .5rem;
     text-align: left;
 }
 
 .contact-label {
     font-size: x-large;
     text-align: left;
+}
+
+@media (max-width: 480px) {
+    .nav {
+        display: none;
+    }
+    .nav-mini {
+        display: flex;
+    }
+    * {
+        text-align: left;
+    }
+    h1, h2, h3, footer {
+        text-align: center;
+    }
+    .img-me {
+        width: 10pc;
+    }
 }

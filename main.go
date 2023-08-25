@@ -48,7 +48,7 @@ type page struct {
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	err := indexView.Render(w, &page{
-		H1:  "welcome to andrewjtomko.me!",
+		H1:  "Hello!",
 		CSS: css,
 	})
 	if err != nil {
@@ -132,7 +132,7 @@ func getBio() *bio {
 		PreferredName: "AJ",
 		Suffix:        "V",
 	}
-	bio.Resume.Summary = `Quick learner with a strong work ethic experienced in fast-paced onprem and cloud system administration from Active Directory and Cisco Unified Communications to G Suite, Azure AD, Zoom, WebEx and other SaaS applications with a mindset for security and a passion for building automation and process improvement including but not limited to synchronizing platforms through GoLang API scripting and SSO/SAML integrations.`
+	bio.Resume.Summary = `Quick learner with a strong work ethic experienced in fast-paced onprem and cloud system administration from Active Directory and Cisco Unified Communications to Okta, G Suite, Azure AD, Zoom, WebEx and many other SaaS applications with a mindset for security and a passion for building automation and process improvement including but not limited to synchronizing platforms with GoLang, Python and/or Powershell API scripting.`
 	bio.Resume.Jobs = append(bio.Resume.Jobs, &job{
 		CompanyName: "Grafana Labs",
 		Title:       "Software Engineer I",
@@ -140,7 +140,10 @@ func getBio() *bio {
 			"Daily/Weekly/Quarterly Cron Jobs in Python for Auditing & Reporting utilizing API calls to query the various cloud services for MFA, Admin Role Additions/Removals, Okta-to-Slack Channel Syncs and more",
 			"Designed, built, and maintained homebrew GoLang Docebo Connect for Google Calendar & Zoom which synchronizes employee LMS Sessions w/ Google Calendar, including synchronized Instructors-to-AltHosts with post-session recording url sharing via Slack",
 			"Advanced Okta Workflow 'Flowgramming' utilizing Built-In & Custom API Connections with Helper Flows, Tables & Crons",
+			"Maintained Slack Bot with /slash Command interactivity for quick and easy access to information from the various cloud services via Golang Web App backend",
 			"Monitoring, Logging & Alerting implementations with Grafana Dashboards for visibility into enterprise application automations & integrations including but not limited to monitoring Hires-to-date, Inbound Hires over 90 days and cloud service license capacity",
+			"Provisioned and maintained SAML/SSO/OIDC integrations for various cloud services with Okta Identity Engine and Azure Portal",
+			"Coordinated the IT Operations efforts for BambooHR to Workday migration to account for any and all downstream impact and necessary maintenance window migrations from simple field updates to okta group rules and roles automations to custom internal integrations which utilized previous HRIS",
 		},
 		Years: "2022 - Current",
 	})
