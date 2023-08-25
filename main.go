@@ -31,6 +31,8 @@ func main() {
 	mux.HandleFunc("/skills", handleSkills)
 	mux.HandleFunc("/games", handleGames)
 	mux.HandleFunc("/contact", handleContact)
+	fs := http.FileServer(http.Dir("./ui/static/"))
+	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
 
