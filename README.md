@@ -1,3 +1,3 @@
 # my-website
 
-https://andrewjtomko.azurewebsites.net
+https://ajtv.me
