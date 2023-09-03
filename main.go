@@ -1,16 +1,20 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
+	"net/smtp"
 	"os"
 
 	"github.com/iamelDuderino/my-website/ui/views"
+	"github.com/joho/godotenv"
 )
 
 var (
-	indexView   *views.View
+	homeView    *views.View
 	aboutView   *views.View
 	skillsView  *views.View
 	gamesView   *views.View
@@ -18,84 +22,17 @@ var (
 	css         template.CSS
 )
 
-func main() {
-	setCSS()
-	indexView = views.NewView("layout", "./ui/views/home.gohtml")
-	aboutView = views.NewView("layout", "./ui/views/about.gohtml")
-	skillsView = views.NewView("layout", "./ui/views/skills.gohtml")
-	gamesView = views.NewView("layout", "./ui/views/games.gohtml")
-	contactView = views.NewView("layout", "./ui/views/contact.gohtml")
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", handleIndex)
-	mux.HandleFunc("/about", handleAbout)
-	mux.HandleFunc("/skills", handleSkills)
-	mux.HandleFunc("/games", handleGames)
-	mux.HandleFunc("/contact", handleContact)
-	fs := http.FileServer(http.Dir("./ui/static/"))
-	mux.Handle("/static/", http.StripPrefix("/static/", fs))
-	log.Fatal(http.ListenAndServe(":8080", mux))
-}
-
 type page struct {
-	H1   string
-	H2   string
-	H3   string
-	P    string
-	OL   []string
-	UL   []string
-	CSS  template.CSS
-	JS   template.JS
-	Data interface{}
-}
-
-func handleIndex(w http.ResponseWriter, r *http.Request) {
-	err := indexView.Render(w, &page{
-		H1:  "Hello!",
-		CSS: css,
-	})
-	if err != nil {
-		log.Println(err)
-	}
-}
-
-func handleAbout(w http.ResponseWriter, r *http.Request) {
-	bio := getBio()
-	aboutView.Render(w, &page{
-		CSS:  css,
-		Data: *bio,
-	})
-}
-
-func handleSkills(w http.ResponseWriter, r *http.Request) {
-	skillsView.Render(w, &page{
-		H1:  "Skills",
-		P:   "GoLang, Python, Powershell, HTML, CSS, JavaScript.. Okta, FreshService & BetterCloud Workflows.. Azure Web & Function App Deployments.. Building, Integrating & Maintaining APIs & Webhook Endpoints.. Slack Bots & Slash Commands.. and more!",
-		CSS: css,
-	})
-}
-
-func handleGames(w http.ResponseWriter, r *http.Request) {
-	gamesView.Render(w, &page{
-		H1:  "Games",
-		P:   "Bump Ball | Pocket Pet Arena | Apex Legend Picker",
-		CSS: css,
-	})
-}
-
-func handleContact(w http.ResponseWriter, r *http.Request) {
-	contactView.Render(w, &page{
-		H1:  "Contact",
-		P:   "Fill out the fake form from the future below to contact me!",
-		CSS: css,
-	})
-}
-
-func setCSS() {
-	b, err := os.ReadFile("./ui/styles.css")
-	if err != nil {
-		panic(err)
-	}
-	css = template.CSS(string(b))
+	H1         string
+	H2         string
+	H3         string
+	P          string
+	OL         []string
+	UL         []string
+	CSS        template.CSS
+	JS         template.JS
+	Data       interface{}
+	FormSubmit bool
 }
 
 type resume struct {
@@ -127,6 +64,82 @@ type bio struct {
 	Resume        resume
 }
 
+// handleHome is the home page!
+func handleHome(w http.ResponseWriter, r *http.Request) {
+	err := homeView.Render(w, &page{
+		H1:  "Hello!",
+		CSS: css,
+	})
+	if err != nil {
+		log.Println(err)
+	}
+}
+
+// handleAbout is a templated Resume layout that expands bullets as needed
+func handleAbout(w http.ResponseWriter, r *http.Request) {
+	bio := getBio()
+	aboutView.Render(w, &page{
+		CSS:  css,
+		Data: *bio,
+	})
+}
+
+// handleSkills is a simple skill page that should be prettied up
+// with some fancier buttons/tags or something
+func handleSkills(w http.ResponseWriter, r *http.Request) {
+	skillsView.Render(w, &page{
+		H1:  "Skills",
+		P:   "GoLang, Python, Powershell, HTML, CSS, JavaScript.. Okta, FreshService & BetterCloud Workflows.. Azure Web & Function App Deployments.. Building, Integrating & Maintaining APIs & Webhook Endpoints.. Slack Bots & Slash Commands.. and more!",
+		CSS: css,
+	})
+}
+
+// handleGames will be a grid layout with images of some simple sample projects
+// that I started in JS in 2021 using SoloLearn, however, they will be refactored
+// into an Ebiten application
+func handleGames(w http.ResponseWriter, r *http.Request) {
+	gamesView.Render(w, &page{
+		H1:  "Games",
+		P:   "Bump Ball | Pocket Pet Arena | Apex Legend Picker",
+		CSS: css,
+	})
+}
+
+// handleContact will present the Thank You page first if form has been submit
+// otherwise it will present the contact form
+func handleContact(w http.ResponseWriter, r *http.Request) {
+	cname := r.FormValue("cname")
+	cmsg := r.FormValue("cmsg")
+
+	if cname != "" && cmsg != "" {
+		contactView.Render(w, &page{
+			H1:         "Thank You, " + cname + "!",
+			P:          "I appreciate you reaching out and will respond as soon as possible!",
+			CSS:        css,
+			FormSubmit: true,
+		})
+		go sendMsg(cname, cmsg) // a go routine so that the page is not held up during signaling
+		return
+	}
+
+	contactView.Render(w, &page{
+		H1:         "Contact",
+		P:          "Fill out the form below to send me an e-mail!",
+		CSS:        css,
+		FormSubmit: false,
+	})
+}
+
+// setCSS saved the css file into the main reference for global use in templates
+func setCSS() {
+	b, err := os.ReadFile("./ui/styles.css")
+	if err != nil {
+		panic(err)
+	}
+	css = template.CSS(string(b))
+}
+
+// getBio is where a resume can be populated!
 func getBio() *bio {
 	bio := &bio{
 		FirstName:     "Andrew",
@@ -134,16 +147,16 @@ func getBio() *bio {
 		PreferredName: "AJ",
 		Suffix:        "V",
 	}
-	bio.Resume.Summary = `Quick learner with a strong work ethic experienced in fast-paced onprem and cloud system administration from Active Directory and Cisco Unified Communications to Okta, G Suite, Azure AD, Zoom, WebEx and many other SaaS applications with a mindset for security and a passion for building automation and process improvement including but not limited to synchronizing platforms with GoLang, Python and/or Powershell API scripting.`
+	bio.Resume.Summary = `Quick, self-taught learner with a strong work ethic experienced in fast-paced on-prem/cloud, front-end/back-end system administration from Active Directory and Cisco Unified Communications to Okta, G Suite, Azure AD & Office 365 and many other SaaS applications with a mindset for security and a passion for building automation and process improvement tools including but not limited to synchronizing platforms with GoLang, Python and/or Powershell API scripting.`
 	bio.Resume.Jobs = append(bio.Resume.Jobs, &job{
 		CompanyName: "Grafana Labs",
 		Title:       "Software Engineer I",
 		Experience: []string{
 			"Daily/Weekly/Quarterly Cron Jobs in Python for Auditing & Reporting utilizing API calls to query the various cloud services for MFA, Admin Role Additions/Removals, Okta-to-Slack Channel Syncs and more",
-			"Designed, built, and maintained homebrew GoLang Docebo Connect for Google Calendar & Zoom which synchronizes employee LMS Sessions w/ Google Calendar, including synchronized Instructors-to-AltHosts with post-session recording url sharing via Slack",
+			"Designed, built, and maintained internal variant of Docebo Connect for Google Calendar & Zoom API/Webhook endpoint in GoLang which synchronizes employee LMS Sessions w/ Google Calendar, including synchronized Instructors-to-AltHosts with post-session recording url sharing via Slack",
 			"Advanced Okta Workflow 'Flowgramming' utilizing Built-In & Custom API Connections with Helper Flows, Tables & Crons",
-			"Maintained Slack Bot with /slash Command interactivity for quick and easy access to information from the various cloud services via Golang Web App backend",
-			"Monitoring, Logging & Alerting implementations with Grafana Dashboards for visibility into enterprise application automations & integrations including but not limited to monitoring Hires-to-date, Inbound Hires over 90 days and cloud service license capacity",
+			"Maintained Slack Bot with /slash Command interactivity for end-user channel conversions with approval processes and quick and easy access to information from the various cloud services via Golang Web App backend",
+			"Monitoring, Logging & Alerting implementations with Grafana Dashboards for visibility into enterprise application automations & integrations including but not limited to monitoring Workday Hires-to-date, Inbound New Hires over 90 days and cloud service license capacity",
 			"Provisioned and maintained SAML/SSO/OIDC integrations for various cloud services with Okta Identity Engine and Azure Portal",
 			"Coordinated the IT Operations efforts for BambooHR to Workday migration to account for any and all downstream impact and necessary maintenance window migrations from simple field updates to okta group rules and roles automations to custom internal integrations which utilized previous HRIS",
 		},
@@ -180,4 +193,73 @@ func getBio() *bio {
 		DegreeOrCert: "Ceritification in Confidence",
 	})
 	return bio
+}
+
+// sendMsg uses Environment Variables to send an Email using Gmail SMTP Servers
+func sendMsg(name, msg string) error {
+	var (
+		err     error
+		host    = os.Getenv("SMTP_HOST")
+		port    = os.Getenv("SMTP_PORT")
+		from    = os.Getenv("SMTP_FROM")
+		to      = []string{os.Getenv("SMTP_TO")}
+		pw      = os.Getenv("SMTP_APP_PW")
+		subject = "You Have A New Message From " + name + "!"
+		b       = []byte(fmt.Sprintf("Subject: %s\n\n%s", subject, msg))
+		auth    = smtp.PlainAuth(
+			"",
+			from,
+			pw,
+			host,
+		)
+	)
+	err = smtp.SendMail(host+":"+port, auth, from, to, b)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func main() {
+
+	// Runtime Flags
+	local := flag.Bool("local", false, "Load local .env")
+	flag.Parse()
+
+	// if running locally load .env file
+	if *local {
+		err := godotenv.Load()
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(".env loaded")
+	}
+
+	// Pages & UI
+	setCSS()
+	homeView = views.NewView("layout", "./ui/views/home.gohtml")
+	aboutView = views.NewView("layout", "./ui/views/about.gohtml")
+	skillsView = views.NewView("layout", "./ui/views/skills.gohtml")
+	gamesView = views.NewView("layout", "./ui/views/games.gohtml")
+	contactView = views.NewView("layout", "./ui/views/contact.gohtml")
+
+	// Web Server & Routes
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", handleHome)
+	mux.HandleFunc("/about", handleAbout)
+	mux.HandleFunc("/skills", handleSkills)
+	mux.HandleFunc("/games", handleGames)
+	mux.HandleFunc("/contact", handleContact)
+
+	// Sample API (todo)
+
+	// Sample Login Page (todo)
+
+	// Static File Server
+	fs := http.FileServer(http.Dir("./ui/static/"))
+	mux.Handle("/static/", http.StripPrefix("/static/", fs))
+
+	// Listen & Serve
+	log.Fatal(http.ListenAndServe(":8080", mux))
+
 }

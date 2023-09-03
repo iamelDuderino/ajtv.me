@@ -1,54 +1,16 @@
-package bumpball
+package main
 
-import (
-	"fmt"
-	"net/http"
-)
+import "fmt"
 
-type gameState struct {
-	Started bool
-	Paused  bool
-	Level   int
-	Lives   int
-	Score   int
-	Quit    bool
-}
+/*
 
-type ball struct {
-	x       float64
-	y       float64
-	Length  int
-	Width   int
-	Speed   int
-	Visible bool
-}
+This is all currently pseudo-code from my original JS bumpball sample
 
-type bumper struct {
-	x       float64
-	y       float64
-	Length  int
-	Width   int
-	Visible bool
-	Moving  bool
-}
+Prepping for update to be en Ebiten application that runs in UI via IFrame
 
-type blocks struct {
-	Total     int
-	Remaining int
-	Blocks    []block
-}
+*/
 
-type block struct {
-	x       float64
-	y       float64
-	Length  int
-	Width   int
-	Visible bool
-	Cracked bool
-}
-
-func Play(writer http.ResponseWriter, req *http.Request) {
-
+func main() {
 	var (
 		gameState = new(gameState)
 		ball      = &ball{
@@ -71,8 +33,6 @@ func Play(writer http.ResponseWriter, req *http.Request) {
 			Remaining: 0,
 		}
 	)
-
-	fmt.Fprint(writer, "<h1>Future Page For Bump Ball</h1>")
 
 	// Loop game until Quit
 	for !gameState.Quit {
