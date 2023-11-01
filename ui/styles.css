@@ -146,7 +146,7 @@ button {
     font-size: large;
 }
 
-textarea, #cname {
+textarea, #cname, #cemail {
     text-align: left;
     min-width: 50%;
     max-width: 100%;
@@ -157,7 +157,7 @@ textarea, #cname {
     font-family: var(--font-family);
 }
 
-textarea:focus, #cname:focus {
+textarea:focus, #cname:focus, #cemail:focus {
     outline: none;
 }
 

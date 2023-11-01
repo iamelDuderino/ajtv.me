@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
 	"net/smtp"
@@ -89,7 +91,7 @@ func handleAbout(w http.ResponseWriter, r *http.Request) {
 func handleSkills(w http.ResponseWriter, r *http.Request) {
 	skillsView.Render(w, &page{
 		H1:  "Skills",
-		P:   "GoLang, Python, Powershell, HTML, CSS, JavaScript.. Okta, FreshService & BetterCloud Workflows.. Azure Web & Function App Deployments.. Building, Integrating & Maintaining APIs & Webhook Endpoints.. Slack Bots & Slash Commands.. and more!",
+		P:   "Paid Problem Solver! GoLang, Python, Powershell, HTML, CSS, JavaScript.. Okta, FreshService & BetterCloud Workflows.. Azure Web & Function App Deployments.. Building, Integrating & Maintaining APIs & Webhook Endpoints.. Slack Bots & Slash Commands.. and more!",
 		CSS: css,
 	})
 }
@@ -110,6 +112,7 @@ func handleGames(w http.ResponseWriter, r *http.Request) {
 func handleContact(w http.ResponseWriter, r *http.Request) {
 	cname := r.FormValue("cname")
 	cmsg := r.FormValue("cmsg")
+	cemail := r.FormValue("cemail")
 
 	if cname != "" && cmsg != "" {
 		contactView.Render(w, &page{
@@ -118,7 +121,7 @@ func handleContact(w http.ResponseWriter, r *http.Request) {
 			CSS:        css,
 			FormSubmit: true,
 		})
-		go sendMsg(cname, cmsg) // a go routine so that the page is not held up during signaling
+		go sendMsg(cname, cemail, cmsg) // a go routine so that the page is not held up during signaling
 		return
 	}
 
@@ -139,64 +142,22 @@ func setCSS() {
 	css = template.CSS(string(b))
 }
 
-// getBio is where a resume can be populated!
+// getBio reads a local json formatted resume
 func getBio() *bio {
-	bio := &bio{
-		FirstName:     "Andrew",
-		LastName:      "Tomko",
-		PreferredName: "AJ",
-		Suffix:        "V",
+	b, err := os.ReadFile("./resume.json")
+	if err != nil {
+		return nil
 	}
-	bio.Resume.Summary = `Quick, self-taught learner with a strong work ethic experienced in fast-paced on-prem/cloud, front-end/back-end system administration from Active Directory and Cisco Unified Communications to Okta, G Suite, Azure AD & Office 365 and many other SaaS applications with a mindset for security and a passion for building automation and process improvement tools including but not limited to synchronizing platforms with GoLang, Python and/or Powershell API scripting.`
-	bio.Resume.Jobs = append(bio.Resume.Jobs, &job{
-		CompanyName: "Grafana Labs",
-		Title:       "Software Engineer I",
-		Experience: []string{
-			"Daily/Weekly/Quarterly Cron Jobs in Python for Auditing & Reporting utilizing API calls to query the various cloud services for MFA, Admin Role Additions/Removals, Okta-to-Slack Channel Syncs and more",
-			"Designed, built, and maintained internal variant of Docebo Connect for Google Calendar & Zoom API/Webhook endpoint in GoLang which synchronizes employee LMS Sessions w/ Google Calendar, including synchronized Instructors-to-AltHosts with post-session recording url sharing via Slack",
-			"Advanced Okta Workflow 'Flowgramming' utilizing Built-In & Custom API Connections with Helper Flows, Tables & Crons",
-			"Maintained Slack Bot with /slash Command interactivity for end-user channel conversions with approval processes and quick and easy access to information from the various cloud services via Golang Web App backend",
-			"Monitoring, Logging & Alerting implementations with Grafana Dashboards for visibility into enterprise application automations & integrations including but not limited to monitoring Workday Hires-to-date, Inbound New Hires over 90 days and cloud service license capacity",
-			"Provisioned and maintained SAML/SSO/OIDC integrations for various cloud services with Okta Identity Engine and Azure Portal",
-			"Coordinated the IT Operations efforts for BambooHR to Workday migration to account for any and all downstream impact and necessary maintenance window migrations from simple field updates to okta group rules and roles automations to custom internal integrations which utilized previous HRIS",
-		},
-		Years: "2022 - Current",
-	})
-	bio.Resume.Jobs = append(bio.Resume.Jobs, &job{
-		CompanyName: "Turbonomic (acquired by IBM)",
-		Title:       "Manager, Global Help Desk Services",
-		Years:       "2021 - 2022",
-		Experience: []string{
-			"Responsible for Help Desk M&A activity post acquisition (IBM) in preparation for transfer of employment (TOE)",
-			"Supported the transfer of multi-departmental services for critical business continuity in preparation for transfer of business (TOB)",
-			"Coordinated the replacement of 520 employee assets for US, CAN and APAC",
-			"Worked directly with Executives, Legal, and Human Resources sponsors to offer Keep Your Old Device (KYOD) programs for all Turbonomic assets to supplement Employee transitional concern and satisfaction",
-		},
-	})
-	bio.Resume.Jobs = append(bio.Resume.Jobs, &job{
-		CompanyName: "SevOne (acquired by Turbonomic)",
-		Title:       "Team Lead, Help Desk",
-		Years:       "2012 - 2021",
-		Experience: []string{
-			"Front and Back-end systems administration for Azure and Active Directories and other help desk managed industry standard SaaS applications",
-			"Built and maintained multifunctional cross-company powershell tool utilizing API with CSV/JSON for routine help desk functions to create a single point of contact which decreased overall lead times of standard day-to-day requests and removed general human error",
-			"Led the integration projects during acquisitions for migration of corporate devices, distribution lists, accounts and their relative SSO and other integrations",
-			"Manage vendors for IT and Help Desk from initial discovery through the entire procurement process, including but not limited to, acquisition of hardware, software, cloud services, renewals and new vendor onboarding",
-			"Successfully rolled out new Antivirus (Sophos) and MDM (workspace one)",
-			"Supported Information Security in a successful ISO27001 implementation and audit",
-			"Create and maintain all IT policies, procedures, standards and methodologies for the Help Desk team company wide",
-		},
-	})
-	bio.Resume.Education = append(bio.Resume.Education, &edu{
-		School:       "Self Taught",
-		Years:        "1991-current",
-		DegreeOrCert: "Ceritification in Confidence",
-	})
+	bio := &bio{}
+	err = json.Unmarshal(b, &bio)
+	if err != nil {
+		return nil
+	}
 	return bio
 }
 
 // sendMsg uses Environment Variables to send an Email using Gmail SMTP Servers
-func sendMsg(name, msg string) error {
+func sendMsg(name, email, msg string) error {
 	var (
 		err     error
 		host    = os.Getenv("SMTP_HOST")
@@ -204,7 +165,7 @@ func sendMsg(name, msg string) error {
 		from    = os.Getenv("SMTP_FROM")
 		to      = []string{os.Getenv("SMTP_TO")}
 		pw      = os.Getenv("SMTP_APP_PW")
-		subject = "You Have A New Message From " + name + "!"
+		subject = "You Have A New Message From " + name + " <" + email + ">!"
 		b       = []byte(fmt.Sprintf("Subject: %s\n\n%s", subject, msg))
 		auth    = smtp.PlainAuth(
 			"",
@@ -234,6 +195,27 @@ func main() {
 		}
 		fmt.Println(".env loaded")
 	}
+
+	// download resume
+	uri := "https://" + os.Getenv("GITHUB_TOKEN") + "@raw.githubusercontent.com/" + os.Getenv("PATH_TO_PRIVATE_REPO")
+	req, err := http.NewRequest(http.MethodGet, uri, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	out, err := os.Create("resume.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	_, err = io.Copy(out, resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	resp.Body.Close()
 
 	// Pages & UI
 	setCSS()
