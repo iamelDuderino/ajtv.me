@@ -1,0 +1,98 @@
+[
+    {
+        "Class": "Assault",
+        "Name": "Bangalore"
+    },
+    {
+        "Class": "Assault",
+        "Name": "Ash"
+    },
+    {
+        "Class": "Assault",
+        "Name": "Mad Maggie"
+    },
+    {
+        "Class": "Assault",
+        "Name": "Ballistic"
+    },
+    {
+        "Class": "Skirmisher",
+        "Name": "Pathfinder"
+    },
+    {
+        "Class": "Skirmisher",
+        "Name": "Wraith"
+    },
+    {
+        "Class": "Skirmisher",
+        "Name": "Octane"
+    },
+    {
+        "Class": "Skirmisher",
+        "Name": "Revenant"
+    },
+    {
+        "Class": "Skirmisher",
+        "Name": "Horizon"
+    },
+    {
+        "Class": "Skirmisher",
+        "Name": "Valkyrie"
+    },
+    {
+        "Class": "Recon",
+        "Name": "Bloodhound"
+    },
+    {
+        "Class": "Recon",
+        "Name": "Crypto"
+    },
+    {
+        "Class": "Recon",
+        "Name": "Seer"
+    },
+    {
+        "Class": "Recon",
+        "Name": "Vantage"
+    },
+    {
+        "Class": "Support",
+        "Name": "Gibraltr"
+    },
+    {
+        "Class": "Support",
+        "Name": "Lifeline"
+    },
+    {
+        "Class": "Support",
+        "Name": "Mirage"
+    },
+    {
+        "Class": "Support",
+        "Name": "Loba"
+    },
+    {
+        "Class": "Support",
+        "Name": "Newcastle"
+    },
+    {
+        "Class": "Support",
+        "Name": "Conduit"
+    },
+    {
+        "Class": "Controller",
+        "Name": "Caustic"
+    },
+    {
+        "Class": "Controller",
+        "Name": "Wattson"
+    },
+    {
+        "Class": "Controller",
+        "Name": "Rampart"
+    },
+    {
+        "Class": "Controller",
+        "Name": "Catalyst"
+    }
+]

@@ -146,7 +146,7 @@ button {
     font-size: large;
 }
 
-textarea, #cname, #cemail {
+textarea, #cname, #cemail, .formInputs {
     text-align: left;
     min-width: 50%;
     max-width: 100%;
@@ -331,6 +331,21 @@ span:hover {
 .contact-label {
     font-size: x-large;
     text-align: left;
+}
+
+.screen-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+}
+
+.screen {
+    flex-grow: 1;
+    border: 1px solid black;
+    margin: 0;
+    padding: 0;
 }
 
 @media (max-width: 480px) {

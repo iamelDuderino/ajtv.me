@@ -16,12 +16,15 @@ import (
 )
 
 var (
-	homeView    *views.View
-	aboutView   *views.View
-	skillsView  *views.View
-	gamesView   *views.View
-	contactView *views.View
-	css         template.CSS
+	homeView           *views.View
+	aboutView          *views.View
+	skillsView         *views.View
+	gamesView          *views.View
+	contactView        *views.View
+	apexLegendsView    *views.View
+	blockbasherView    *views.View
+	pokemonstadiumView *views.View
+	css                template.CSS
 )
 
 type page struct {
@@ -66,74 +69,7 @@ type bio struct {
 	Resume        resume
 }
 
-// handleHome is the home page!
-func handleHome(w http.ResponseWriter, r *http.Request) {
-	err := homeView.Render(w, &page{
-		H1:  "Hello!",
-		CSS: css,
-	})
-	if err != nil {
-		log.Println(err)
-	}
-}
-
-// handleAbout is a templated Resume layout that expands bullets as needed
-func handleAbout(w http.ResponseWriter, r *http.Request) {
-	bio := getBio()
-	aboutView.Render(w, &page{
-		CSS:  css,
-		Data: *bio,
-	})
-}
-
-// handleSkills is a simple skill page that should be prettied up
-// with some fancier buttons/tags or something
-func handleSkills(w http.ResponseWriter, r *http.Request) {
-	skillsView.Render(w, &page{
-		H1:  "Skills",
-		P:   "Paid Problem Solver! GoLang, Python, Powershell, HTML, CSS, JavaScript.. Okta, FreshService & BetterCloud Workflows.. Azure Web & Function App Deployments.. Building, Integrating & Maintaining APIs & Webhook Endpoints.. Slack Bots & Slash Commands.. and more!",
-		CSS: css,
-	})
-}
-
-// handleGames will be a grid layout with images of some simple sample projects
-// that I started in JS in 2021 using SoloLearn, however, they will be refactored
-// into an Ebiten application
-func handleGames(w http.ResponseWriter, r *http.Request) {
-	gamesView.Render(w, &page{
-		H1:  "Games",
-		P:   "Bump Ball | Pocket Pet Arena | Apex Legend Picker",
-		CSS: css,
-	})
-}
-
-// handleContact will present the Thank You page first if form has been submit
-// otherwise it will present the contact form
-func handleContact(w http.ResponseWriter, r *http.Request) {
-	cname := r.FormValue("cname")
-	cmsg := r.FormValue("cmsg")
-	cemail := r.FormValue("cemail")
-
-	if cname != "" && cmsg != "" {
-		contactView.Render(w, &page{
-			H1:         "Thank You, " + cname + "!",
-			P:          "I appreciate you reaching out and will respond as soon as possible!",
-			CSS:        css,
-			FormSubmit: true,
-		})
-		go sendMsg(cname, cemail, cmsg) // a go routine so that the page is not held up during signaling
-		return
-	}
-
-	contactView.Render(w, &page{
-		H1:         "Contact",
-		P:          "Fill out the form below to send me an e-mail!",
-		CSS:        css,
-		FormSubmit: false,
-	})
-}
-
-// setCSS saved the css file into the main reference for global use in templates
+// setCSS saves the css file into the main reference for global use in templates
 func setCSS() {
 	b, err := os.ReadFile("./ui/styles.css")
 	if err != nil {
@@ -224,6 +160,9 @@ func main() {
 	skillsView = views.NewView("layout", "./ui/views/skills.gohtml")
 	gamesView = views.NewView("layout", "./ui/views/games.gohtml")
 	contactView = views.NewView("layout", "./ui/views/contact.gohtml")
+	apexLegendsView = views.NewView("layout", "./ui/views/apexlegends.gohtml")
+	blockbasherView = views.NewView("layout", "./ui/views/blockbasher.gohtml")
+	pokemonstadiumView = views.NewView("layout", "./ui/views/pokemonstadium.gohtml")
 
 	// Web Server & Routes
 	mux := http.NewServeMux()
@@ -233,13 +172,26 @@ func main() {
 	mux.HandleFunc("/games", handleGames)
 	mux.HandleFunc("/contact", handleContact)
 
+	// games
+	mux.HandleFunc("/games/blockbasher", runBlockBasher)
+	mux.HandleFunc("/games/pokemonstadium", runPokemonStadium)
+
+	// other projects
+	mux.HandleFunc("/projects/apexlegends", runApexLegends)
+
 	// Sample API (todo)
+	mux.HandleFunc("/api/apexlegends/stats", GETApexLegendsStats)
+	mux.HandleFunc("/api/apexlegends/maprotation", GETApexLegendsMapRotation)
 
 	// Sample Login Page (todo)
 
 	// Static File Server
 	fs := http.FileServer(http.Dir("./ui/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
+
+	// WASM File Server
+	blockbasherWASM := http.FileServer(http.Dir("./games/blockbasher/wasm"))
+	mux.Handle("/wasm/blockbasher/run.html", http.StripPrefix("/wasm/blockbasher/", blockbasherWASM))
 
 	// Listen & Serve
 	log.Fatal(http.ListenAndServe(":8080", mux))

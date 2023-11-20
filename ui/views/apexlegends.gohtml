@@ -1,0 +1,58 @@
+{{ define "title" }}
+
+Apex Legends
+
+{{ end }}
+
+{{ define "content" }}
+
+    <h1>{{ .H1 }}</h1>
+    <p>{{ .P }}</p>
+
+    <hr class="content-hr">
+
+    {{ if .Data }}
+
+        <h2>Map Rotation</h1>
+        <p>Current: {{ .Data.MapRotation.Current.Name }} (remaining time: {{ .Data.MapRotation.Current.RemainingTimer }})</p>
+        <p>Next: {{ .Data.MapRotation.Next.Name }}</p>
+
+    {{ end }}
+
+    <hr class="content-hr">
+
+    {{ if .FormSubmit }}
+        {{ if .Data.Error }}
+            <p>Error: {{ .Data.Error }} </p>
+        {{ else }}
+            <h2>{{ .Data.PlayerStats.GlobalStats.Name }}</h2>
+            <p>Prestige: {{ .Data.PlayerStats.GlobalStats.PrestigeLevel }}</p>
+            <p>Level: {{ .Data.PlayerStats.GlobalStats.Level }}</p>
+            <p>Rank: {{ .Data.PlayerStats.GlobalStats.Rank.RankName }} {{ .Data.PlayerStats.GlobalStats.Rank.RankDivision }} ( {{ .Data.PlayerStats.GlobalStats.Rank.RankScore }}LP )</p>
+        {{ end }}
+    {{ end }}
+
+    {{ if not .FormSubmit }}
+        <h2>Player Stats</h1>
+        <form id="apexLegendsStats">
+            <label class="contact-label" for="player">Player</label>
+            <input type="text" class="formInputs" name="player"></input>
+            <br>
+            <label class="contact-label" for="platform">Platform</label>
+            <input type="text"class="formInputs" name="platform"></input>
+            <br>
+            <button formaction="/projects/apexlegends">Get Stats!</button>
+        </form>
+    {{ end }}
+
+    <br><hr class="content-hr">
+
+    <h2>Pick My Next Legend!</h1>
+
+    <form>
+        <label class="contact-label" for="randomLegend" name="randomLegend"> {{ .Data.RandomLegend.Name }}</label>
+        <br>
+        <button formaction="/projects/apexlegends">Pick It!</button>
+    </form>
+
+{{ end }}
