@@ -11,7 +11,7 @@ import (
 	"net/smtp"
 	"os"
 
-	"github.com/iamelDuderino/my-website/ui/views"
+	"github.com/iamelDuderino/my-website/src/ui/views"
 	"github.com/joho/godotenv"
 )
 
