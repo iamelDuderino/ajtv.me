@@ -169,11 +169,11 @@ span:hover {
 
 .home-page {
     margin: auto;
-    padding: 2rem;
+    padding: 1rem 0 0 1rem;
     display: grid;
     height: 100%;
     grid-template-columns: repeat(2, auto);
-    max-width: 70rem;
+    max-width: 80%;
 }
 
 /* .home-page-p {
