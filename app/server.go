@@ -1,6 +1,8 @@
 package app
 
-import "net/http"
+import (
+	"net/http"
+)
 
 type httpServer struct {
 	ListenAddress string

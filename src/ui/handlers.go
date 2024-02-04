@@ -8,26 +8,21 @@ import (
 
 func (x *UI) HomeHandler(w http.ResponseWriter, r *http.Request) {
 	p := x.newPage(r)
-	x.HomeView.Render(w, p)
+	x.homeView.render(w, p)
 }
 
-// handleAbout is a templated Resume layout that expands bullets as needed
 func (x *UI) AboutHandler(w http.ResponseWriter, r *http.Request) {
-	bio := utils.GetBio()
+	bio := utils.ReadResume()
 	p := x.newPage(r)
 	p.Data = bio
-	x.AboutView.Render(w, p)
+	x.aboutView.render(w, p)
 }
 
-// handleSkills is a simple skill page that should be prettied up
-// with some fancier buttons/tags or something
 func (x *UI) SkillsHandler(w http.ResponseWriter, r *http.Request) {
 	p := x.newPage(r)
-	x.SkillsView.Render(w, p)
+	x.skillsView.render(w, p)
 }
 
-// handleContact will present the Thank You page first if form has been submit
-// otherwise it will present the contact form
 func (x *UI) ContactHandler(w http.ResponseWriter, r *http.Request) {
 	var (
 		cname  = r.FormValue("cname")
@@ -39,5 +34,5 @@ func (x *UI) ContactHandler(w http.ResponseWriter, r *http.Request) {
 		p.Data = true
 		go utils.SendEmail(cname, cemail, cmsg)
 	}
-	x.ContactView.Render(w, p)
+	x.contactView.render(w, p)
 }
