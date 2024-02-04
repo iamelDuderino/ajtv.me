@@ -1,9 +1,4 @@
-{{ define "title" }}
-
-About
-
-{{ end }}
-
+{{ define "title" }}About{{ end }}
 {{ define "content" }}
 
     <!-- Header -->
@@ -12,7 +7,7 @@ About
     <!-- SUMMARY -->
     <h2>SUMMARY</h2>
     <hr class="content-hr">
-    <p>{{ .Data.Resume.Summary }}</p>
+    <p class="bio-content-summary">{{ .Data.Resume.Summary }}</p>
     <hr class="content-hr">
 
     <!-- EXPERIENCE -->

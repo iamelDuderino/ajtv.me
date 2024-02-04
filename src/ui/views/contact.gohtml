@@ -1,29 +1,14 @@
-{{ define "title" }}
-
-Contact
-
-{{ end }}
-
+{{ define "title" }}Contact{{ end }}
 {{ define "content" }}
-
-    {{ if .FormSubmit }}
-
-        <h1>{{ .H1 }}</h1>
-        <p>{{ .P }}</p>
-    
-    {{ end }}
-
-    {{if not .FormSubmit }}
-
-        <h1>{{ .H1 }}</h1>
-        <p>{{ .P }}</p>
-    
+    {{ if .Data }}
+        <h1>Thank you for reaching out!</h1>
+    {{ else }}
         <form>
-            <label class="contact-label" for="cname">Your Name</label>
+            <label class="contact-label" for="cname">Name</label>
             <br>
             <input type="text" id="cname" name="cname"></input>
             <br>
-            <label class="contact-label" for="cemail">Your Email</label>
+            <label class="contact-label" for="cemail">Email</label>
             <br>
             <input type="text" id="cemail" name="cemail"></input>
             <br><br>
@@ -31,9 +16,7 @@ Contact
             <br>
             <textarea id="cmsg" name="cmsg"></textarea>
             <br>
-            <button formaction="/contact">Submit</button>
+            <button class="btn-submit" formaction="/contact">Submit</button>
         </form>
-
     {{ end }}
-
 {{ end }}

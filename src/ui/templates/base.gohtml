@@ -1,4 +1,4 @@
-{{ define "layout" }}
+{{ define "base" }}
 
   <!DOCTYPE html>
   <html lang="en">
@@ -9,26 +9,20 @@
     </head>
 
   <body>
-  
-  <!-- HEADER -->
-  <header>
 
-  <!-- MINI NAV BAR -->
-  <nav class="nav-mini">[ ... ]
+  <header>
+  <nav class="nav-mini">[ . . . ]
     <ul class="nav-mini-ul">
       <li class="nav-mini-ul-li"><a href="/">Home</a></li><hr class="nav-mini-hr">
       <li class="nav-mini-ul-li"><a href="/about">About</a></li><hr class="nav-mini-hr">
-      <li class="nav-mini-ul-li"><a href="/skills">Skills</a></li><hr class="nav-mini-hr">
-      <li class="nav-mini-ul-li"><a href="/games">Games</a></li><hr class="nav-mini-hr">
+      {{/* <li class="nav-mini-ul-li"><a href="/skills">Skills</a></li><hr class="nav-mini-hr"> */}}
       <li class="nav-mini-ul-li"><a href="/contact">Contact</a></li>
     </ul>
   </nav>
-  <!-- END MINI NAV BAR -->
 
   <h1 class="banner-text">ajtv.me</h1>
 
   </header>
-  <!-- END HEADER -->
 
     <!-- LAYOUT -->
     <div class="layout">
@@ -38,8 +32,7 @@
         <ul class="nav-ul">
           <li class="nav-ul-li"><a class="nav-ul-a" href="/">Home</a></li><hr class="nav-hr">
           <li class="nav-ul-li"><a class="nav-ul-a" href="/about">About</a></li><hr class="nav-hr">
-          <li class="nav-ul-li"><a class="nav-ul-a" href="/skills">Skills</a></li><hr class="nav-hr">
-          <li class="nav-ul-li"><a class="nav-ul-a" href="/games">Games</a></li><hr class="nav-hr">
+          {{/* <li class="nav-ul-li"><a class="nav-ul-a" href="/skills">Skills</a></li><hr class="nav-hr"> */}}
           <li class="nav-ul-li"><a class="nav-ul-a" href="/contact">Contact</a></li>
         </ul>
       </nav> 
@@ -54,13 +47,10 @@
     </div> <!-- END LAYOUT-->
 
 
-    <!-- FOOTER -->
     <footer>
-      <hr class="content-hr footer-hr">
+      <hr class="footer-hr">
       <p class="footer-socials"><span class="font-lg"><a href="https://www.linkedin.com/in/andrew-aj-tomko-24132948/">LinkedIn</a></span> | <span class="font-lg"><a href="https://github.com/iamelDuderino">Github</a></span></p>
-    </footer>
-    <!-- END FOOTER -->
-      
+    </footer>      
     
   </body>
 </html>
