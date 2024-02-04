@@ -21,6 +21,8 @@ type app struct {
 
 func init() {
 
+	utils.Logger.Log(requestType, utils.StatusProcessing, "App initialization started")
+
 	err := godotenv.Load()
 	if err != nil {
 		panic(err)
@@ -39,5 +41,7 @@ func init() {
 	Run.buildRoutes()
 	Run.UI.BuildViews()
 	Run.UI.BuildCookieStores(*dev)
+
+	utils.Logger.Log(requestType, utils.StatusComplete, "App initialization complete")
 
 }

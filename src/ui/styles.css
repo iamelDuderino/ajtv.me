@@ -345,22 +345,20 @@ span:hover {
 
 @media (max-width: 720px) {
 
+    /* general changes */
     .content {
         margin: 5rem 0 3rem 0;
     }
+    h1, h2, h3, footer {
+        text-align: center;
+    }
 
-    /* navigation menu changes */
+    /* swap navigation menus */
     .nav {
         display: none;
     }
     .nav-mini {
         display: flex;
-    }
-    /* * {
-        text-align: left;
-    } */
-    h1, h2, h3, footer {
-        text-align: center;
     }
 
     /* home page changes */
