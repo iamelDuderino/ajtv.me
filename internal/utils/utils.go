@@ -9,8 +9,8 @@ import (
 
 type Resume struct {
 	Summary   string
-	Jobs      []*Job
-	Education []*Edu
+	Jobs      []Job
+	Education []Edu
 }
 
 type Job struct {
