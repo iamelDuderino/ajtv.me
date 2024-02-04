@@ -3,7 +3,7 @@ package app
 import (
 	"flag"
 
-	utils "github.com/iamelDuderino/my-website/internal"
+	"github.com/iamelDuderino/my-website/internal/utils"
 	"github.com/iamelDuderino/my-website/src/ui"
 	"github.com/joho/godotenv"
 )
