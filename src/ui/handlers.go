@@ -24,10 +24,6 @@ func (x *UI) AboutHandler(w http.ResponseWriter, r *http.Request) {
 func (x *UI) SkillsHandler(w http.ResponseWriter, r *http.Request) {
 	p := x.newPage(r)
 	x.SkillsView.Render(w, p)
-	// 	H1:  "Skills",
-	// 	P:   "Paid Problem Solver! GoLang, Python, Powershell, HTML, CSS, JavaScript.. Okta, FreshService & BetterCloud Workflows.. Azure Web & Function App Deployments.. Building, Integrating & Maintaining APIs & Webhook Endpoints.. Slack Bots & Slash Commands.. and more!",
-	// 	CSS: css,
-	// })
 }
 
 // handleContact will present the Thank You page first if form has been submit
