@@ -2,7 +2,7 @@
 {{ define "content" }}
 
     <!-- Header -->
-    <h1>{{ .Data.FirstName }} ({{ .Data.PreferredName }}) {{ .Data.LastName }} {{ .Data.Suffix }}</h1>
+    <h1>{{ .Data.FirstName }} {{ if .Data.PreferredName }} ({{ .Data.PreferredName }}) {{ end }} {{ .Data.LastName }} {{ .Data.Suffix }}</h1>
 
     <!-- SUMMARY -->
     <h2>SUMMARY</h2>

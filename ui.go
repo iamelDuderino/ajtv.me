@@ -1,4 +1,4 @@
-package ui
+package main
 
 import (
 	"html/template"
@@ -10,7 +10,40 @@ import (
 	"github.com/iamelDuderino/my-website/internal/utils"
 )
 
-func (x *UI) BuildViews() {
+const (
+	viewsFolder             = "./ui/views"
+	globalSessionCookieName = "ajtv.me-global-cookies"
+)
+
+var (
+	css template.CSS
+)
+
+type page struct {
+	Authenticated bool
+	Data          interface{}
+	CSS           template.CSS
+	JS            template.JS
+}
+
+type view struct {
+	Template *template.Template
+	Layout   string
+}
+
+func (v *view) render(w http.ResponseWriter, data interface{}) error {
+	return v.Template.ExecuteTemplate(w, v.Layout, data)
+}
+
+type userInterface struct {
+	homeView      *view
+	aboutView     *view
+	skillsView    *view
+	contactView   *view
+	globalSession *sessions.CookieStore
+}
+
+func (x *userInterface) buildViews() {
 
 	// Views
 	x.homeView = x.newView("base", viewsFolder+"/home.gohtml")
@@ -19,7 +52,7 @@ func (x *UI) BuildViews() {
 	x.contactView = x.newView("base", viewsFolder+"/contact.gohtml")
 
 	// CSS
-	b, err := os.ReadFile("./src/ui/styles.css")
+	b, err := os.ReadFile("./ui/styles.css")
 	if err != nil {
 		panic(err)
 	}
@@ -27,7 +60,7 @@ func (x *UI) BuildViews() {
 
 }
 
-func (x *UI) BuildCookieStores(dev bool) {
+func (x *userInterface) buildCookieStores(dev bool) {
 	// placeholder content for gorilla sessions implementation
 	// var params string
 	// switch dev {
@@ -39,7 +72,7 @@ func (x *UI) BuildCookieStores(dev bool) {
 	x.globalSession = sessions.NewCookieStore([]byte(os.Getenv("GLOBAL_SESSION_SECRET")))
 }
 
-func (x *UI) newView(layout string, files ...string) *view {
+func (x *userInterface) newView(layout string, files ...string) *view {
 	files = append(files, x.getTemplateFiles()...)
 	t, err := template.ParseFiles(files...)
 	if err != nil {
@@ -51,21 +84,21 @@ func (x *UI) newView(layout string, files ...string) *view {
 	}
 }
 
-func (x *UI) newPage(r *http.Request) *page {
+func (x *userInterface) newPage(r *http.Request) *page {
 	return &page{
 		CSS: css,
 	}
 }
 
-func (x *UI) getTemplateFiles() []string {
-	files, err := filepath.Glob("./src/ui/templates/*.gohtml")
+func (x *userInterface) getTemplateFiles() []string {
+	files, err := filepath.Glob("./ui/templates/*.gohtml")
 	if err != nil {
 		panic(err)
 	}
 	return files
 }
 
-func (x *UI) SessionManager(fn func(w http.ResponseWriter, r *http.Request)) func(http.ResponseWriter, *http.Request) {
+func (x *userInterface) sessionManager(fn func(w http.ResponseWriter, r *http.Request)) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		s, err := x.globalSession.Get(r, globalSessionCookieName)
 		if err != nil {
@@ -79,8 +112,4 @@ func (x *UI) SessionManager(fn func(w http.ResponseWriter, r *http.Request)) fun
 		}
 		fn(w, r)
 	}
-}
-
-func (v *view) render(w http.ResponseWriter, data interface{}) error {
-	return v.Template.ExecuteTemplate(w, v.Layout, data)
 }

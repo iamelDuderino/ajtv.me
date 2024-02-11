@@ -1,4 +1,4 @@
-package api
+package main
 
 import (
 	"encoding/json"
@@ -6,7 +6,14 @@ import (
 	"github.com/iamelDuderino/my-website/internal/utils"
 )
 
-func (x API) newResponse() apiResponse {
+type applicationInterface struct{}
+
+type apiResponse struct {
+	OK      bool   `json:"ok"`
+	Message string `json:"message"`
+}
+
+func (x applicationInterface) newResponse() apiResponse {
 	return apiResponse{
 		OK: true,
 	}
