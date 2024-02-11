@@ -85,9 +85,14 @@ func (x *userInterface) newView(layout string, files ...string) *view {
 }
 
 func (x *userInterface) newPage(r *http.Request) *page {
-	return &page{
+	var p = &page{
 		CSS: css,
 	}
+
+	// placeholder use r to set p.Authenticated if logged in with Okta Dev console
+	// for sample simple admin page
+
+	return p
 }
 
 func (x *userInterface) getTemplateFiles() []string {

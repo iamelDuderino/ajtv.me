@@ -12,6 +12,16 @@ func (x *userInterface) home(w http.ResponseWriter, r *http.Request) {
 	x.homeView.render(w, p)
 }
 
+// sample simple admin page
+// func (x *userInterface) admin(w http.ResponseWriter, r *http.Request) {
+// 	p := x.newPage(r)
+// 	if !p.Authenticated {
+// 		http.Redirect(w, r, "/", http.StatusOK)
+// 		return
+// 	}
+// 	x.homeView.render(w, p)
+// }
+
 func (x *userInterface) about(w http.ResponseWriter, r *http.Request) {
 	bio := utils.ReadResume()
 	p := x.newPage(r)
