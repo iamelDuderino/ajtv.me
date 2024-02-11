@@ -1,69 +1,13 @@
 :root {
     --bg-color: rgb(31, 28, 28);
-    --font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    --font-color: rgba(255, 255, 255, 0.8);
-    --primary-color: rgba(130, 218, 130, 0.8);
-    --primary-color-solid: rgb(60, 92, 60);
-    --secondary-color: rgb(189, 41, 189);
-}
-
-@keyframes page-flip-gradient {
-    0%, 20% {
-        background-image: linear-gradient(to bottom right, white, white, white, white, white);
-    }
-    20%, 25% {
-        background-image: linear-gradient(to bottom right, var(--secondary-color), white, white, white, white);
-    }
-    25%, 30% {
-        background-image: linear-gradient(to bottom right, var(--secondary-color), var(--secondary-color), white, white, white);
-    }
-    30%,35% {
-        background-image: linear-gradient(to bottom right, var(--secondary-color), var(--secondary-color), var(--secondary-color), white, white);
-    }
-    35%,40% {
-        background-image: linear-gradient(to bottom right, var(--secondary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color), white);
-    }
-    45%, 50% {
-        background-image: linear-gradient(to bottom right, var(--secondary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color));
-    }
-    50%, 55% {
-        background-image: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color));
-    }
-    55%, 60% {
-        background-image: linear-gradient(to bottom right, var(--primary-color), var(--primary-color), var(--secondary-color), var(--secondary-color), var(--secondary-color));
-    }
-    60%,65% {
-        background-image: linear-gradient(to bottom right, var(--primary-color), var(--primary-color), var(--primary-color), var(--secondary-color), var(--secondary-color));
-    }
-    65%,70% {
-        background-image: linear-gradient(to bottom right, var(--primary-color), var(--primary-color), var(--primary-color), var(--primary-color), var(--secondary-color));
-    }
-    70%, 100% {
-        background-image: linear-gradient(to bottom right, var(--primary-color), var(--primary-color), var(--primary-color), var(--primary-color), var(--primary-color));
-    }
-}
-
-@keyframes home-page-welcome {
-    100% {
-        transform: scale(0%);
-    }
-}
-
-@keyframes grow-font-xl {
-    100% {
-        font-size: x-large;
-    }
-}
-
-@keyframes grow-font-xxl {
-    100% {
-        font-size: xx-large;
-    }
+    --font-family: "Sora";
+    --font-color: rgba(255, 255, 255, 1);
+    --primary-color: rgba(130, 218, 130, 1);
 }
 
 @keyframes slide-right {
     100% {
-        transform: translateX(.5rem);
+        transform: translateX(.2rem);
     }
 }
 
@@ -88,33 +32,56 @@ body {
 }
 
 header {
-    background-color: var(--primary-color);
+    background-color: var(--bg-color);
     display: flex;
-    margin: 0;
-    padding-left: .5rem;
-    padding-right: .5rem;
+    position: fixed;
+    height: 5rem;
+    width: 100%;
     justify-content: right;
     font: var(--font-family);
     font-style: italic;
 }
 
 footer {
-    padding: .5rem;
+    background-color: var(--bg-color);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    bottom: 0;
+    height: 3.3rem;
+}
+
+.footer {
+    position: fixed;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
 }
 
 a {
     text-decoration: none;
     color: inherit;
     cursor: default;
+    padding: .2rem;
 }
 
 h2 {
     color: var(--primary-color)
 }
 
+h1, h2, h3 {
+    font-size: xx-large;
+}
+
 hr {
     opacity: 10%;
-    border: 1px solid var(--bg-color);
+    border: .1rem solid var(--primary-color);
+    border-radius: 50%;
+    animation: hr-glow 3s ease infinite;
+    z-index: -1;
 }
 
 body {
@@ -126,6 +93,11 @@ p {
     margin: 1rem;
     font-size: large;
     font-family: var(--font-family);
+}
+
+p, li {
+    font-size: x-large;
+    text-align: left;
 }
 
 ul {
@@ -173,15 +145,16 @@ span:hover {
     color: var(--primary-color);
 }
 
-.socials:hover {
+/* .socials:hover {
     animation: grow-font-xl .2s ease forwards;
-}
+} */
 
 .banner-text {
-    color: var(--bg-color);
+    color: var(--primary-color);
+    margin-right: 1rem;
 }
 
-.home-page-welcome {
+/* .home-page-welcome {
     animation: home-page-welcome 1s forwards;
     animation-delay: 2s;
     margin: 0;
@@ -190,16 +163,30 @@ span:hover {
     font-family: var(--font-family);
     font-style: italic;
     background-color: transparent;
-}
+} */
 
-.img-me {
+.img-profilepic {
     min-width: 5rem;
-    max-width: 20rem;
-    display: block;
+    max-width: 30rem;
+    /* display: block; */
     margin: auto;
     padding: 0;
-    border-radius: 100pc;
-    box-shadow: 0 0 10pc 1pc var(--primary-color);
+    border-radius: 100%;
+    box-shadow: 0 0 0 .1rem var(--primary-color);
+}
+
+.home-page {
+    margin: auto;
+    padding: 1rem 0 0 1rem;
+    display: grid;
+    height: 100%;
+    grid-template-columns: repeat(2, auto);
+    max-width: 80%;
+}
+
+.nav {
+    margin-top: 5rem;
+    position: fixed;
 }
 
 .nav-ul, .nav-mini-ul {
@@ -211,17 +198,6 @@ span:hover {
     text-decoration: none;
 }
 
-.nav-ul-a {
-    display: flex;
-    justify-content: left;
-}
-
-.nav-ul a:link, a:active, a:hover, a:visited {
-    text-decoration: none;
-    color: inherit;
-    cursor: default;
-}
-
 .nav-ul-li:hover {
     color: var(--primary-color);
     animation: slide-right .2s ease forwards;
@@ -229,7 +205,7 @@ span:hover {
 
 .nav-mini {
     margin: 0;
-    color: var(--bg-color);
+    color: var(--primary-color);
     padding: 1rem;
     width: 100%;
     align-self: center;
@@ -246,6 +222,7 @@ span:hover {
     border-radius: 1pc;
     max-width: fit-content;
     max-height: auto;
+    margin-left: 1rem;
 }
 
 .nav-mini-ul-li {
@@ -265,6 +242,7 @@ span:hover {
 .layout {
     padding: 0;
     margin: 0;
+    margin-bottom: 3rem;
     display: flex;
     background-color: transparent;
 }
@@ -274,7 +252,9 @@ span:hover {
     flex-direction: column;
     height: 100%;
     width: 100%;
-    margin: 0;
+    margin-top: 5rem;
+    margin-bottom: 3.3rem;
+    margin-left: 7rem;
     justify-content: center;
     padding: 0;
     background-color: transparent;
@@ -290,10 +270,6 @@ span:hover {
 
 .content-hr {
     width: 60%;
-    animation: hr-glow 3s ease infinite;
-    background-color: var(--primary-color);
-    height: .1rem;
-    border: transparent;
 }
 
 .footer-hr {
@@ -301,20 +277,27 @@ span:hover {
 }
 
 .footer-socials {
+    font-size: medium;
+    margin: 0;
+}
+
+.font-lg {
     font-size: large;
 }
 
-.footer-poweredby {
+.font-sm {
     font-size: small;
 }
 
 .bio-content {
-    width: 100%;
+    width: 80%;
     display:flex;
-    justify-content: left;
+    margin: auto;
 }
 
 .bio-content-summary {
+    width: 80%;
+    margin: auto;
     text-align: center;
     font-style: italic;
 }
@@ -333,32 +316,52 @@ span:hover {
     text-align: left;
 }
 
-.screen-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 80%;
+.btn-submit {
+    background-color: var(--primary-color);
+    border-radius: 2rem;
+    width: 10rem;
+    margin: auto;
 }
 
-.screen {
-    flex-grow: 1;
-    border: 1px solid black;
-    margin: 0;
-    padding: 0;
+@media (max-width: 1280px) {
+    .home-page {
+        grid-template-columns: repeat(1, auto);
+    }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 720px) {
+
+    /* general changes */
+    .content {
+        margin: 5rem 0 3.3rem 0;
+    }
+    h1, h2, h3, footer {
+        text-align: center;
+    }
+
+    /* swap navigation menus */
     .nav {
         display: none;
     }
     .nav-mini {
         display: flex;
     }
-    * {
-        text-align: left;
+
+    /* home page changes */
+    .img-profilepic {
+        max-width:15rem;
+        /* margin: 0; */
     }
-    h1, h2, h3, footer {
-        text-align: center;
+}
+
+@media (max-width: 480px) {
+    form {
+        width: 90%;
+    }
+}
+
+@media (max-width: 300px) {
+    .img-profilepic {
+        max-width: 10rem;
     }
 }

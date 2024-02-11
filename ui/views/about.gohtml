@@ -1,18 +1,13 @@
-{{ define "title" }}
-
-About
-
-{{ end }}
-
+{{ define "title" }}About{{ end }}
 {{ define "content" }}
 
     <!-- Header -->
-    <h1>{{ .Data.FirstName }} ({{ .Data.PreferredName }}) {{ .Data.LastName }} {{ .Data.Suffix }}</h1>
+    <h1>{{ .Data.FirstName }} {{ if .Data.PreferredName }} ({{ .Data.PreferredName }}) {{ end }} {{ .Data.LastName }} {{ .Data.Suffix }}</h1>
 
     <!-- SUMMARY -->
     <h2>SUMMARY</h2>
     <hr class="content-hr">
-    <p>{{ .Data.Resume.Summary }}</p>
+    <p class="bio-content-summary">{{ .Data.Resume.Summary }}</p>
     <hr class="content-hr">
 
     <!-- EXPERIENCE -->
