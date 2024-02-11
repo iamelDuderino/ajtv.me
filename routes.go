@@ -16,7 +16,7 @@ func (x *application) buildRoutes() {
 	x.server.mux.HandleFunc("/api", x.api.getBasicResponse)
 
 	// File Server
-	fs := http.FileServer(http.Dir("./public/"))
-	x.server.mux.Handle("/public/", http.StripPrefix("/public/", fs))
+	fs := http.FileServer(http.Dir("./ui/static"))
+	x.server.mux.Handle("/ui/static/", http.StripPrefix("/ui/static/", fs))
 
 }
