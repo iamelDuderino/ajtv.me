@@ -13,7 +13,7 @@ func (x *application) buildRoutes() {
 	x.server.mux.HandleFunc("/contact", x.ui.sessionManager(x.ui.contact))
 
 	// API
-	x.server.mux.HandleFunc("/api", x.api.getBasicResponse)
+	x.server.mux.HandleFunc("/api", x.api.get(x.api.getBasicResponse))
 
 	// File Server
 	fs := http.FileServer(http.Dir("./ui/static"))
