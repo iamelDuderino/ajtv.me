@@ -8,6 +8,10 @@ import (
 )
 
 func (x *userInterface) home(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
 	p := x.newPage(r)
 	x.homeView.render(w, p)
 }
