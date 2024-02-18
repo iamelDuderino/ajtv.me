@@ -5,6 +5,7 @@
     <h1>{{ .Data.FirstName }} {{ if .Data.PreferredName }} ({{ .Data.PreferredName }}) {{ end }} {{ .Data.LastName }} {{ .Data.Suffix }}</h1>
 
     <!-- SUMMARY -->
+    <hr class="content-hr">
     <h2>SUMMARY</h2>
     <hr class="content-hr">
     <p class="bio-content-summary">{{ .Data.Resume.Summary }}</p>
@@ -17,7 +18,9 @@
     
     <hr class="content-hr">
         <h3>{{ .CompanyName }}</h3>
-        <p class="bio-content-summary">{{ .Years }} | {{ .Title }}</p>
+        {{ if .AcquiredBy }}<h4>(acquired by {{ .AcquiredBy }})</h4>{{ end }}
+        <p class="bio-content-summary">{{ .Title }}<br>
+        {{ .Years }}</p>
         <div class="bio-content">
             <ul class="bio-content-ul">
                 {{ range .Experience }}

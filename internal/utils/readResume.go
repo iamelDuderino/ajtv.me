@@ -13,6 +13,7 @@ type Resume struct {
 
 type Job struct {
 	CompanyName string
+	AcquiredBy  string
 	Title       string
 	Experience  []string
 	StartDate   string

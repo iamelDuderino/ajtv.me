@@ -35,7 +35,8 @@ header {
     background-color: var(--bg-color);
     display: flex;
     position: fixed;
-    height: 5rem;
+    height: 3rem;
+    top: -.2rem;
     width: 100%;
     justify-content: right;
     font: var(--font-family);
@@ -48,7 +49,7 @@ footer {
     display: flex;
     flex-direction: column;
     width: 100%;
-    bottom: 0;
+    bottom: -.2rem;
     height: 3.3rem;
 }
 
@@ -68,12 +69,24 @@ a {
     padding: .2rem;
 }
 
-h2 {
-    color: var(--primary-color)
+h1, h2, h3, h4 {
+    text-align: center;
+    margin: .2rem;
+    padding: .2rem;
 }
+
 
 h1, h2, h3 {
     font-size: xx-large;
+}
+
+h2, h3 {
+    color: var(--primary-color)
+}
+
+h4 {
+    font-size: x-large;
+    font-style: italic;
 }
 
 hr {
@@ -91,17 +104,16 @@ body {
 
 p {
     margin: 1rem;
-    font-size: large;
-    font-family: var(--font-family);
-}
-
-p, li {
     font-size: x-large;
-    text-align: left;
+    font-family: var(--font-family);
 }
 
 ul {
     list-style-type: none;
+}
+
+li {
+    font-size: x-large;
 }
 
 form {
@@ -205,13 +217,17 @@ span:hover {
 
 .nav-mini {
     margin: 0;
+    padding: 0;
+    top: .5rem;
+    left: .5rem;
     color: var(--primary-color);
-    padding: 1rem;
     width: 100%;
+    height: 3rem;
     align-self: center;
     display: none;
     font-family: var(--font-family);
     font-size: large;
+    position: absolute;
 }
 
 .nav-mini-ul {
@@ -335,8 +351,14 @@ span:hover {
     .content {
         margin: 5rem 0 3.3rem 0;
     }
-    h1, h2, h3, footer {
-        text-align: center;
+    h1, h2, h3 {
+        font-size: x-large;
+    }
+     h4 {
+        font-size: large;
+    }
+    p, li {
+        font-size: large;
     }
 
     /* swap navigation menus */
@@ -350,7 +372,19 @@ span:hover {
     /* home page changes */
     .img-profilepic {
         max-width:15rem;
-        /* margin: 0; */
+    }
+    .home-page {
+        max-width: 95%;
+        text-align: center;
+        padding: 1rem 0 0 0;
+    }
+
+    /* about changes */
+    .bio-content-summary {
+        width: 90%;
+    }
+    .bio-content {
+        width: 95%;
     }
 }
 
