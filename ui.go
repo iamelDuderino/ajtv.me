@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
 	"html/template"
 	"net/http"
 	"os"
@@ -32,7 +34,14 @@ type view struct {
 }
 
 func (v *view) render(w http.ResponseWriter, data interface{}) error {
-	return v.Template.ExecuteTemplate(w, v.Layout, data)
+	var buf bytes.Buffer
+	err := v.Template.ExecuteTemplate(&buf, v.Layout, data)
+	if err != nil {
+		return err
+	}
+	fmt.Fprint(w, buf.String())
+	return nil
+	// return v.Template.ExecuteTemplate(w, v.Layout, data)
 }
 
 type userInterface struct {
