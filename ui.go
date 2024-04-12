@@ -41,7 +41,6 @@ func (v *view) render(w http.ResponseWriter, data interface{}) error {
 	}
 	fmt.Fprint(w, buf.String())
 	return nil
-	// return v.Template.ExecuteTemplate(w, v.Layout, data)
 }
 
 type userInterface struct {
