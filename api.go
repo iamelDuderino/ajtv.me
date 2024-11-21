@@ -14,9 +14,10 @@ type apiResponse struct {
 	Message string `json:"message"`
 }
 
-func (x applicationInterface) newResponse() apiResponse {
+func (x applicationInterface) newResponse(ok bool, msg string) apiResponse {
 	return apiResponse{
-		OK: true,
+		OK:      ok,
+		Message: msg,
 	}
 }
 

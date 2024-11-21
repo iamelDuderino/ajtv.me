@@ -1,20 +1,27 @@
 {{ define "title" }}Contact{{ end }}
 {{ define "content" }}
-    {{ if .Data }}
-        <h1>Thank you for reaching out!</h1>
-    {{ else }}
-        <form>
-            <label class="contact-label" for="cname">Name</label>
+    {{ if .Data.Visible }}
+        <form method="POST">
+            <label class="contact-label" for="name">Name</label>
+            {{ with .Data.Errors.Name }}
+                <label class="invalid-form-entry">{{ .  }}</label>
+            {{ end }}
             <br>
-            <input type="text" id="cname" name="cname"></input>
+            <input type="text" id="name" name="name" {{ if and .Data .Data.Name }} value="{{ .Data.Name }}"{{ end }}></input>
             <br>
-            <label class="contact-label" for="cemail">Email</label>
+            <label class="contact-label" for="email">Email</label>
+            {{ with .Data.Errors.Email }}
+                <label class="invalid-form-entry">{{ .  }}</label>
+            {{ end }}
             <br>
-            <input type="text" id="cemail" name="cemail"></input>
-            <br><br>
-            <label class="contact-label" for="cmsg">Message</label>
+            <input type="text" id="email" name="email" {{ if and .Data .Data.Email }} value="{{ .Data.Email }}"{{ end }}></input>
             <br>
-            <textarea id="cmsg" name="cmsg"></textarea>
+            <label class="contact-label" for="msg">Message</label>
+            {{ with .Data.Errors.Message }}
+                <label class="invalid-form-entry">{{ .  }}</label>
+            {{ end }}
+            <br>
+            <textarea id="msg" name="msg">{{ if and .Data .Data.Message }}{{ .Data.Message }}{{ end }}</textarea>
             <br>
             <button class="btn-submit" formaction="/contact">Submit</button>
         </form>

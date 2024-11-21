@@ -40,10 +40,18 @@
       </nav> 
       <!-- END NAV BAR -->
 
+
+
       <!-- TEMPLATED CONTENT -->
       <div class="content">
 
-          {{ template "content" . }}
+        {{ with .FlashMessage }}
+          <div>
+            <p class="flash-message">{{ . }}</p>
+          </div>
+        {{ end }}
+
+        {{ template "content" . }}
           
       </div> <!-- END TEMPLATED CONTENT -->
     </div> <!-- END LAYOUT-->
@@ -51,8 +59,8 @@
     <footer>
       <hr class="footer-hr">
       <div class="footer">
-        <a target="_" href="https://www.linkedin.com/in/andrew-aj-tomko-24132948/"><img src="/ui/static/linkedin_logo.png" width="30" height="30"></a>
-        <a target="_" href="https://github.com/iamelDuderino"><img src="/ui/static/github_logo.png" width="30" height="30"></a>
+        <a target="_" href="{{ .GetURL "LINKEDIN" }}"><img src="/ui/static/linkedin_logo.png" width="30" height="30"></a>
+        <a target="_" href="{{ .GetURL "GITHUB" }}"><img src="/ui/static/github_logo.png" width="30" height="30"></a>
       </div>
     </footer>
     

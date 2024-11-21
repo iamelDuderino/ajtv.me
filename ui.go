@@ -24,8 +24,30 @@ var (
 type page struct {
 	Authenticated bool
 	Data          interface{}
+	FlashMessage  string
 	CSS           template.CSS
 	JS            template.JS
+}
+
+func (x *page) GetURL(url string) string {
+	var (
+		accepted = []string{
+			"GITHUB",
+			"LINKEDIN",
+		}
+		allowed = func(s string) bool {
+			for _, i := range accepted {
+				if i == s {
+					return true
+				}
+			}
+			return false
+		}
+	)
+	if !allowed(url) {
+		return ""
+	}
+	return os.Getenv(url + "_URL")
 }
 
 type view struct {
@@ -125,4 +147,54 @@ func (x *userInterface) sessionManager(fn func(w http.ResponseWriter, r *http.Re
 		}
 		fn(w, r)
 	}
+}
+
+func (x *userInterface) newContactForm(name, email, msg string) *ContactForm {
+	return &ContactForm{
+		Name:    name,
+		Email:   email,
+		Message: msg,
+		Errors:  make(map[string]string),
+		Visible: true,
+	}
+}
+
+type ContactForm struct {
+	Name, Email, Message string
+	Visible              bool
+	Errors               map[string]string
+}
+
+func (x *ContactForm) isValid() bool {
+	validName := x.validName()
+	if !validName {
+		x.Errors["Name"] = "Name Is Blank!"
+	}
+	validEmail := x.validEmail()
+	if !validEmail {
+		x.Errors["Email"] = "Email Is Blank!"
+	}
+	validMessage := x.validMessage()
+	if !validMessage {
+		x.Errors["Message"] = "Message Is Blank!"
+	}
+	return (len(x.Errors) == 0)
+}
+
+func (x *ContactForm) validName() bool {
+	return (x.Name != "" && x.Name != " ")
+}
+
+func (x *ContactForm) validEmail() bool {
+	return (x.Email != "" && x.Email != " ")
+}
+
+func (x *ContactForm) validMessage() bool {
+	return (x.Message != "" && x.Message != " ")
+}
+
+func (x *ContactForm) clear() {
+	x.Name = ""
+	x.Email = ""
+	x.Message = ""
 }

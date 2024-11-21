@@ -33,27 +33,25 @@ func (x *userInterface) about(w http.ResponseWriter, r *http.Request) {
 	x.aboutView.render(w, p)
 }
 
-func (x *userInterface) skills(w http.ResponseWriter, r *http.Request) {
-	p := x.newPage(r)
-	x.skillsView.render(w, p)
-}
-
 func (x *userInterface) contact(w http.ResponseWriter, r *http.Request) {
 	var (
-		cname  = r.FormValue("cname")
-		cemail = r.FormValue("cemail")
-		cmsg   = r.FormValue("cmsg")
-		p      = x.newPage(r)
+		form = x.newContactForm(r.FormValue("name"), r.FormValue("email"), r.FormValue("msg"))
+		p    = x.newPage(r)
 	)
-	if cname != "" && cemail != "" && cmsg != "" {
-		p.Data = true
-		go utils.SendEmail(cname, cemail, cmsg)
+	if r.Method == http.MethodPost {
+		ok := form.isValid()
+		if ok {
+			p.FlashMessage = "Thank you for reaching out!"
+			form.clear()
+			form.Visible = false
+			go utils.SendEmail(form.Name, form.Email, form.Message)
+		}
 	}
+	p.Data = form
 	x.contactView.render(w, p)
 }
 
 func (x *applicationInterface) getBasicResponse(w http.ResponseWriter, r *http.Request) {
-	resp := x.newResponse()
-	resp.Message = "Thank you for testing my basic sample API!"
+	resp := x.newResponse(true, "Success!")
 	fmt.Fprint(w, resp.JSON())
 }

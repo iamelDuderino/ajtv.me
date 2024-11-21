@@ -130,7 +130,7 @@ button {
     font-size: large;
 }
 
-textarea, #cname, #cemail, .formInputs {
+textarea, input#name, input#email, .formInputs {
     text-align: left;
     min-width: 50%;
     max-width: 100%;
@@ -141,11 +141,11 @@ textarea, #cname, #cemail, .formInputs {
     font-family: var(--font-family);
 }
 
-textarea:focus, #cname:focus, #cemail:focus {
+textarea:focus, input#name:focus, input#email:focus {
     outline: none;
 }
 
-#cmsg {
+textarea#msg {
     min-width: 100%;
     min-height: 50%;
     min-height: 10rem;
@@ -261,6 +261,23 @@ span:hover {
     margin-bottom: 3rem;
     display: flex;
     background-color: transparent;
+}
+
+.flash-message {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    color: var(--primary-color);
+    margin: auto;
+    border-radius: 50rem;
+    font-style: italic;
+}
+
+.invalid-form-entry {
+    color: red;
+    font-size: medium;
+    font-style: italic;
+    text-align: left;
 }
 
 .content {

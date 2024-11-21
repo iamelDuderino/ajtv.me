@@ -9,7 +9,6 @@ func (x *application) buildRoutes() {
 	// UI
 	x.server.mux.HandleFunc("/", x.ui.sessionManager(x.ui.home))
 	x.server.mux.HandleFunc("/about", x.ui.sessionManager(x.ui.about))
-	x.server.mux.HandleFunc("/skills", x.ui.sessionManager(x.ui.skills))
 	x.server.mux.HandleFunc("/contact", x.ui.sessionManager(x.ui.contact))
 
 	// API
