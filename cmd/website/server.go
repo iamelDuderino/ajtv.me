@@ -4,7 +4,17 @@ import (
 	"net/http"
 )
 
-func (x *application) buildRoutes() {
+type httpServer struct {
+	listenAddress string
+	mux           *http.ServeMux
+}
+
+func (x *application) newServeMux() {
+	x.server.listenAddress = ":8080"
+	x.server.mux = http.NewServeMux()
+}
+
+func (x *application) setRoutes() {
 
 	// UI
 	x.server.mux.HandleFunc("/", x.ui.sessionManager(x.ui.home))

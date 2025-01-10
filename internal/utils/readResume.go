@@ -35,7 +35,7 @@ type Bio struct {
 	Resume        Resume
 }
 
-// getBio reads a local json formatted resume
+// reads a local json formatted resume
 func ReadResume() *Bio {
 	b, err := os.ReadFile("./resume.json")
 	if err != nil {

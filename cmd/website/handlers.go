@@ -27,9 +27,8 @@ func (x *userInterface) home(w http.ResponseWriter, r *http.Request) {
 // }
 
 func (x *userInterface) about(w http.ResponseWriter, r *http.Request) {
-	bio := utils.ReadResume()
 	p := x.newPage(r)
-	p.Data = bio
+	p.Data = utils.ReadResume()
 	x.aboutView.render(w, p)
 }
 
@@ -39,7 +38,7 @@ func (x *userInterface) contact(w http.ResponseWriter, r *http.Request) {
 		p    = x.newPage(r)
 	)
 	if r.Method == http.MethodPost {
-		ok := form.isValid()
+		ok := form.valid()
 		if ok {
 			p.FlashMessage = "Thank you for reaching out!"
 			form.clear()

@@ -9,7 +9,6 @@ import (
 	"path/filepath"
 
 	"github.com/gorilla/sessions"
-	"github.com/iamelDuderino/my-website/internal/utils"
 )
 
 const (
@@ -21,50 +20,6 @@ var (
 	css template.CSS
 )
 
-type page struct {
-	Authenticated bool
-	Data          interface{}
-	FlashMessage  string
-	CSS           template.CSS
-	JS            template.JS
-}
-
-func (x *page) GetURL(url string) string {
-	var (
-		accepted = []string{
-			"GITHUB",
-			"LINKEDIN",
-		}
-		allowed = func(s string) bool {
-			for _, i := range accepted {
-				if i == s {
-					return true
-				}
-			}
-			return false
-		}
-	)
-	if !allowed(url) {
-		return ""
-	}
-	return os.Getenv(url + "_URL")
-}
-
-type view struct {
-	Template *template.Template
-	Layout   string
-}
-
-func (v *view) render(w http.ResponseWriter, data interface{}) error {
-	var buf bytes.Buffer
-	err := v.Template.ExecuteTemplate(&buf, v.Layout, data)
-	if err != nil {
-		return err
-	}
-	fmt.Fprint(w, buf.String())
-	return nil
-}
-
 type userInterface struct {
 	homeView      *view
 	aboutView     *view
@@ -74,32 +29,35 @@ type userInterface struct {
 }
 
 func (x *userInterface) buildViews() {
-
-	// Views
 	x.homeView = x.newView("base", viewsFolder+"/home.gohtml")
 	x.aboutView = x.newView("base", viewsFolder+"/about.gohtml")
 	x.skillsView = x.newView("base", viewsFolder+"/skills.gohtml")
 	x.contactView = x.newView("base", viewsFolder+"/contact.gohtml")
-
-	// CSS
 	b, err := os.ReadFile("./ui/styles.css")
 	if err != nil {
 		panic(err)
 	}
 	css = template.CSS(string(b))
-
 }
 
-func (x *userInterface) buildCookieStores(dev bool) {
-	// placeholder content for gorilla sessions implementation
-	// var params string
-	// switch dev {
-	// case true:
-	// 	params = "localhost"
-	// case false:
-	// 	params = "gcloud.ue.r.appspot.com"
-	// }
+func (x *userInterface) buildCookieStores() {
 	x.globalSession = sessions.NewCookieStore([]byte(os.Getenv("GLOBAL_SESSION_SECRET")))
+}
+
+func (x *userInterface) sessionManager(fn func(w http.ResponseWriter, r *http.Request)) func(http.ResponseWriter, *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		s, err := x.globalSession.Get(r, globalSessionCookieName)
+		if err != nil {
+			fmt.Println(err)
+		}
+		if s.IsNew {
+			err = s.Save(r, w)
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+		fn(w, r)
+	}
 }
 
 func (x *userInterface) newView(layout string, files ...string) *view {
@@ -133,22 +91,6 @@ func (x *userInterface) getTemplateFiles() []string {
 	return files
 }
 
-func (x *userInterface) sessionManager(fn func(w http.ResponseWriter, r *http.Request)) func(http.ResponseWriter, *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		s, err := x.globalSession.Get(r, globalSessionCookieName)
-		if err != nil {
-			utils.Logger.LogErr(requestType, err)
-		}
-		if s.IsNew {
-			err = s.Save(r, w)
-			if err != nil {
-				utils.Logger.LogErr(requestType, err)
-			}
-		}
-		fn(w, r)
-	}
-}
-
 func (x *userInterface) newContactForm(name, email, msg string) *ContactForm {
 	return &ContactForm{
 		Name:    name,
@@ -159,13 +101,42 @@ func (x *userInterface) newContactForm(name, email, msg string) *ContactForm {
 	}
 }
 
+type page struct {
+	Authenticated bool
+	Data          interface{}
+	FlashMessage  string
+	CSS           template.CSS
+	JS            template.JS
+}
+
+type view struct {
+	Template *template.Template
+	Layout   string
+}
+
+func (v *view) render(w http.ResponseWriter, data interface{}) error {
+	var buf bytes.Buffer
+	err := v.Template.ExecuteTemplate(&buf, v.Layout, data)
+	if err != nil {
+		return err
+	}
+	fmt.Fprint(w, buf.String())
+	return nil
+}
+
 type ContactForm struct {
 	Name, Email, Message string
 	Visible              bool
 	Errors               map[string]string
 }
 
-func (x *ContactForm) isValid() bool {
+func (x *ContactForm) clear() {
+	x.Name = ""
+	x.Email = ""
+	x.Message = ""
+}
+
+func (x *ContactForm) valid() bool {
 	validName := x.validName()
 	if !validName {
 		x.Errors["Name"] = "Name Is Blank!"
@@ -191,10 +162,4 @@ func (x *ContactForm) validEmail() bool {
 
 func (x *ContactForm) validMessage() bool {
 	return (x.Message != "" && x.Message != " ")
-}
-
-func (x *ContactForm) clear() {
-	x.Name = ""
-	x.Email = ""
-	x.Message = ""
 }

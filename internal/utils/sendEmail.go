@@ -8,7 +8,6 @@ import (
 
 func SendEmail(fromName, fromEmail, msg string) error {
 	var (
-		err     error
 		host    = os.Getenv("SMTP_HOST")
 		port    = os.Getenv("SMTP_PORT")
 		from    = os.Getenv("SMTP_FROM")
@@ -23,7 +22,7 @@ func SendEmail(fromName, fromEmail, msg string) error {
 			host,
 		)
 	)
-	err = smtp.SendMail(host+":"+port, auth, from, to, b)
+	err := smtp.SendMail(host+":"+port, auth, from, to, b)
 	if err != nil {
 		return err
 	}
