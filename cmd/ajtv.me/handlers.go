@@ -19,23 +19,6 @@ func (x *application) home(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// sample simple admin page
-// func (x *application) admin(w http.ResponseWriter, r *http.Request) {
-// 	p := x.ui.newPage(r)
-// 	if !p.Authenticated {
-// 		http.Redirect(w, r, "/", http.StatusOK)
-// 		return
-// 	}
-// 	x.ui.views["admin"].render(w, p)
-// }
-
-// func (x *application) about(w http.ResponseWriter, r *http.Request) {
-// 	bio := resumereader.Scan()
-// 	p := x.ui.newPage(r)
-// 	p.Data = bio
-// 	x.ui.views["about"].render(w, p)
-// }
-
 func (x *application) games(w http.ResponseWriter, r *http.Request) {
 	p := x.ui.newPage(r)
 	x.ui.views["games"].render(w, p)
@@ -43,8 +26,10 @@ func (x *application) games(w http.ResponseWriter, r *http.Request) {
 
 func (x *application) blockbasher(w http.ResponseWriter, r *http.Request) {
 	p := x.ui.newPage(r)
-	// p.JS = template.JS(string(ui.ExecJS))
-	x.ui.views["blockbasher"].render(w, p)
+	err := x.ui.views["blockbasher"].render(w, p)
+	if err != nil {
+		x.logger.Error.Println(err)
+	}
 }
 
 func (x *application) contact(w http.ResponseWriter, r *http.Request) {

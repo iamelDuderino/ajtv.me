@@ -14,7 +14,6 @@ import (
 )
 
 const (
-	// viewsFolder             = "./ui/views"
 	viewsFolder             = "views/"
 	globalSessionCookieName = "ajtv.me-global-cookies"
 )
@@ -63,11 +62,6 @@ func (x *userInterface) buildViews() {
 	x.views["blockbasher"] = x.newView("base", viewsFolder+"blockbasher.gohtml")
 
 	// CSS
-	// b, err := os.ReadFile("./ui/styles.css")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// css = template.CSS(string(b))
 	css = template.CSS(ui.StyleSheet)
 
 }
