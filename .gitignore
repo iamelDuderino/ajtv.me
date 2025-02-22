@@ -1,4 +1,5 @@
 .vscode/
-.env
 bin/
+env.json
 resume.json
+vendor/
