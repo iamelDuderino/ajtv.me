@@ -18,10 +18,10 @@ func newApplication(dev bool) *application {
 	app := &application{
 		ui: &userInterface{
 			views:  make(map[string]*view),
-			logger: logger.NewLogger(),
+			logger: logger.NewLogger("UI_INFO", "UI_ERROR"),
 		},
 		api:    new(applicationInterface),
-		logger: logger.NewLogger(),
+		logger: logger.NewLogger("INFO", "ERROR"),
 	}
 	app.server = app.buildServer()
 	app.ui.buildViews()
