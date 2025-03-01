@@ -109,22 +109,6 @@ func (x *userInterface) newPage(r *http.Request) *page {
 	return p
 }
 
-func (x *userInterface) sessionManager(fn func(w http.ResponseWriter, r *http.Request)) func(http.ResponseWriter, *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		s, err := x.globalSession.Get(r, globalSessionCookieName)
-		if err != nil {
-			x.logger.Error.Println(err)
-		}
-		if s.IsNew {
-			err = s.Save(r, w)
-			if err != nil {
-				x.logger.Error.Println(err)
-			}
-		}
-		fn(w, r)
-	}
-}
-
 func (x *userInterface) newContactForm(name, email, msg string) *ContactForm {
 	return &ContactForm{
 		Name:    name,
