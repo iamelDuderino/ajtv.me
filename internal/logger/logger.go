@@ -10,9 +10,9 @@ type Logger struct {
 	Error *log.Logger
 }
 
-func NewLogger() *Logger {
+func NewLogger(info, err string) *Logger {
 	return &Logger{
-		Info:  log.New(os.Stdout, "INFO: ", log.LstdFlags),
-		Error: log.New(os.Stderr, "ERROR: ", log.LstdFlags|log.Llongfile),
+		Info:  log.New(os.Stdout, info+": ", log.LstdFlags),
+		Error: log.New(os.Stderr, err+": ", log.LstdFlags|log.Llongfile),
 	}
 }
