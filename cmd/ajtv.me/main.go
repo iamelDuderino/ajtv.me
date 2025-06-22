@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"net/http"
 
 	"github.com/iamelDuderino/my-website/internal/logger"
@@ -14,25 +13,25 @@ type application struct {
 	logger *logger.Logger
 }
 
-func newApplication(dev bool) *application {
+func newApplication() *application {
 	app := &application{
 		ui: &userInterface{
 			views:  make(map[string]*view),
 			logger: logger.NewLogger("UI_INFO", "UI_ERROR"),
 		},
-		api:    new(applicationInterface),
-		logger: logger.NewLogger("INFO", "ERROR"),
+		api: &applicationInterface{
+			logger: logger.NewLogger("API_INFO", "API_ERROR"),
+		},
+		logger: logger.NewLogger("APP_INFO", "APP_ERROR"),
 	}
 	app.server = app.buildServer()
 	app.ui.buildViews()
-	app.ui.buildCookieStores(dev)
+	app.ui.buildCookieStores()
 	return app
 }
 
 func main() {
-	dev := flag.Bool("dev", false, "Load local development configuration for session cookies")
-	flag.Parse()
-	app := newApplication(*dev)
+	app := newApplication()
 	app.logger.Info.Println("Starting Server on", app.server.listenAddress)
 	app.logger.Error.Fatal(http.ListenAndServe(app.server.listenAddress, app.server.mux))
 }

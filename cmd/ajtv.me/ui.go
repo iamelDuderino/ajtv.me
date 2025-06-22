@@ -35,7 +35,7 @@ type view struct {
 	Layout   string
 }
 
-func (v *view) render(w http.ResponseWriter, data interface{}) error {
+func (v *view) render(w http.ResponseWriter, data any) error {
 	var buf bytes.Buffer
 	err := v.Template.ExecuteTemplate(&buf, v.Layout, data)
 	if err != nil {
@@ -66,15 +66,8 @@ func (x *userInterface) buildViews() {
 
 }
 
-func (x *userInterface) buildCookieStores(dev bool) {
+func (x *userInterface) buildCookieStores() {
 	x.globalSession = sessions.NewCookieStore([]byte(secretmanager.Getenv("GLOBAL_SESSION_SECRET")))
-	// placeholder content for gorilla sessions implementation
-	// switch dev {
-	// case true:
-	// 	x.globalSession.Options.Domain = "ajtv.me.local"
-	// case false:
-	// 	x.globalSession.Options.Domain = "ajtv.me"
-	// }
 }
 
 func (x *userInterface) newView(layout string, files ...string) *view {
@@ -151,10 +144,4 @@ func (x *ContactForm) validEmail() bool {
 
 func (x *ContactForm) validMessage() bool {
 	return (x.Message != "" && x.Message != " ")
-}
-
-func (x *ContactForm) clear() {
-	x.Name = ""
-	x.Email = ""
-	x.Message = ""
 }

@@ -8,5 +8,4 @@ func TestSecretManager(t *testing.T) {
 	if v == "" {
 		t.Fatal("secret response value blank")
 	}
-	// t.Logf("%s:%s", k, v)
 }

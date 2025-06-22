@@ -7,7 +7,6 @@ toolchain go1.22.12
 require (
 	cloud.google.com/go/secretmanager v1.14.4
 	github.com/gorilla/sessions v1.2.2
-	google.golang.org/api v0.220.0
 )
 
 require (
@@ -35,6 +34,7 @@ require (
 	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/time v0.9.0 // indirect
+	google.golang.org/api v0.220.0 // indirect
 	google.golang.org/genproto v0.0.0-20250122153221-138b5a5a4fd4 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250124145028-65684f501c47 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250127172529-29210b9bc287 // indirect

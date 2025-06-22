@@ -7,30 +7,17 @@ import (
 
 	secretmanager "cloud.google.com/go/secretmanager/apiv1"
 	"cloud.google.com/go/secretmanager/apiv1/secretmanagerpb"
-	"google.golang.org/api/option"
 )
 
-//go:embed "env.json"
-var dotenv []byte
-
-// Google Secret Manager
-// Instead of hosting a .env file, a local env.json file should be present
-// This will be a developers authorization for service account to connect to GCP Secret Manager
-
-// To generate a token, first ensure the user has the role "Service Account Token Creator", then
-// run the following command:
-// gcloud auth application-default login --project <pid> --impersonate-service-account <service account>
+const (
+	pid = "ajtvme"
+)
 
 func Getenv(secret string) string {
-	var (
-		s   string
-		pid = "ajtvme"
-		ctx = context.Background()
-	)
-	c, err := secretmanager.NewClient(ctx, option.WithCredentialsJSON(dotenv))
+	ctx := context.Background()
+	c, err := secretmanager.NewClient(ctx)
 	if err != nil {
-		fmt.Println(err)
-		return s
+		return ""
 	}
 	defer c.Close()
 	r, err := c.AccessSecretVersion(ctx, &secretmanagerpb.AccessSecretVersionRequest{
@@ -38,8 +25,7 @@ func Getenv(secret string) string {
 	})
 	if err != nil {
 		fmt.Println(err)
-		return s
+		return ""
 	}
-	s = string(r.Payload.Data)
-	return s
+	return string(r.Payload.Data)
 }

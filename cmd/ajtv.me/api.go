@@ -2,9 +2,13 @@ package main
 
 import (
 	"encoding/json"
+
+	"github.com/iamelDuderino/my-website/internal/logger"
 )
 
-type applicationInterface struct{}
+type applicationInterface struct {
+	logger *logger.Logger
+}
 
 type apiResponse struct {
 	OK      bool   `json:"ok"`

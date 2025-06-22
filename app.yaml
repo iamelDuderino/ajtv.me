@@ -1,2 +1,4 @@
 runtime: go123
 main: cmd/ajtv.me
+automatic_scaling:
+  max_instances: 1
